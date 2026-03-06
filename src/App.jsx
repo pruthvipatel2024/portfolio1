@@ -285,6 +285,24 @@ const Projects = () => {
 };
 
 const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    message: ''
+  });
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const subject = `Portfolio Contact from ${formData.name}`;
+    const body = `Name: ${formData.name}\nEmail: ${formData.email}\n\nMessage:\n${formData.message}`;
+    window.location.href = `mailto:patelpruthvi671@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   return (
     <section id="contact" className="py-24 relative overflow-hidden">
        <div className="absolute top-0 right-0 w-64 h-64 bg-accent/10 rounded-full blur-[100px]" />
@@ -299,7 +317,7 @@ const Contact = () => {
               <div className="space-y-4">
                 <div className="flex items-center gap-4 text-slate-300">
                   <div className="w-10 h-10 glass rounded-lg flex items-center justify-center text-primary"><Mail size={20} /></div>
-                  hello@example.com
+                  patelpruthvi671@gmail.com
                 </div>
                 <div className="flex items-center gap-4 text-slate-300">
                   <div className="w-10 h-10 glass rounded-lg flex items-center justify-center text-secondary"><Linkedin size={20} /></div>
@@ -307,11 +325,35 @@ const Contact = () => {
                 </div>
               </div>
             </div>
-            <form className="space-y-4">
-              <input type="text" placeholder="Full Name" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors" />
-              <input type="email" placeholder="Email Address" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors" />
-              <textarea placeholder="Tell me about your project" rows="4" className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors" />
-              <button type="button" className="btn-primary w-full flex items-center justify-center gap-2">
+            <form onSubmit={handleSubmit} className="space-y-4">
+              <input 
+                type="text" 
+                name="name"
+                value={formData.name}
+                onChange={handleChange}
+                placeholder="Full Name" 
+                required
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors" 
+              />
+              <input 
+                type="email" 
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                placeholder="Email Address" 
+                required
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors" 
+              />
+              <textarea 
+                name="message"
+                value={formData.message}
+                onChange={handleChange}
+                placeholder="Tell me about your project" 
+                rows="4" 
+                required
+                className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 focus:outline-none focus:border-primary transition-colors" 
+              />
+              <button type="submit" className="btn-primary w-full flex items-center justify-center gap-2">
                 Send Message <Send size={18} />
               </button>
             </form>
