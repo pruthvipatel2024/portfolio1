@@ -40,7 +40,7 @@ const Hero = () => {
               </h1>
               
               <p className="text-slate-400 text-xl mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Hi, I'm <span className="text-white font-semibold">Pruthvi Patel</span>. A Fullstack Developer dedicated to crafting high-performance management systems and immersive web experiences with pixel-perfect precision.
+                Hi, I'm <span className="text-white font-semibold">Pruthvi Surati</span>. A passionate Fullstack Developer with a hands-on approach to learning. Although new to the professional industry, I have built 20+ real-world projects, mastering management systems and complex web architectures through code.
               </p>
               
               <div className="flex flex-wrap justify-center lg:justify-start gap-6">

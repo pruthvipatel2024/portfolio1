@@ -5,21 +5,39 @@ import { ExternalLink, Github, ArrowRight } from 'lucide-react';
 const Projects = () => {
   const projects = [
     {
-      title: 'Camera Store E-Commerce',
+      title: 'Construction Site Management',
+      category: 'Enterprise ERP',
+      desc: 'A comprehensive system for tracking construction progress, inventory, and workforce management. Designed for scalability and real-time data accuracy.',
+      tags: ['PHP', 'MySQL', 'JavaScript', 'System Design'],
+      image: 'https://images.unsplash.com/photo-1541888946425-d81bb19480c5?auto=format&fit=crop&q=80&w=1200',
+      github: 'https://github.com/pruthvipatel2024/construction_site_management',
+      demo: '#'
+    },
+    {
+      title: 'Enterprise E-Commerce',
+      category: 'Retail Architecture',
+      desc: 'A high-performance shopping platform built with Hack (HHVM). Features advanced caching and a sophisticated database schema for handling large traffic.',
+      tags: ['Hack', 'PHP', 'Database Design', 'Caching'],
+      image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=1200',
+      github: 'https://github.com/pruthvipatel2024/E-Commerce',
+      demo: '#'
+    },
+    {
+      title: 'Camera Store Marketplace',
       category: 'E-Commerce Solution',
-      desc: 'A high-performance marketplace for professional photography gear. Features advanced filtering, secure checkout, and a robust admin dashboard.',
-      tags: ['PHP', 'MySQL', 'JavaScript', 'CSS3'],
+      desc: 'A specialized online store for photography gear with integrated payment gateways and a robust inventory management dashboard.',
+      tags: ['PHP', 'JavaScript', 'Tailwind CSS', 'MySQL'],
       image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1200',
       github: 'https://github.com/pruthvipatel2024/camera-store',
       demo: '#'
     },
     {
-      title: 'Enterprise Management System',
-      category: 'Internal Tooling',
-      desc: 'A comprehensive management platform designed for scaling businesses. Streamlines operations with real-time analytics and inventory tracking.',
-      tags: ['Hack', 'PHP', 'Database Architecture', 'React'],
-      image: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&q=80&w=1200',
-      github: 'https://github.com/pruthvipatel2024/E-Commerce',
+      title: 'Hospital Information System',
+      category: 'Management System',
+      desc: 'A complete medical management suite featuring appointment scheduling, patient records (EMR), and pharmacy inventory management.',
+      tags: ['PHP', 'AJAX', 'MySQL', 'Responsive UI'],
+      image: 'https://images.unsplash.com/photo-1538108197017-c1b462799188?auto=format&fit=crop&q=80&w=1200',
+      github: 'https://github.com/pruthvipatel2024/project-1',
       demo: '#'
     }
   ];

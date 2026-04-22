@@ -28,7 +28,7 @@ const Navbar = () => {
           className="text-2xl font-bold tracking-tighter"
         >
           <span className="text-white">PRUTHVI</span>
-          <span className="text-gradient">.PATEL</span>
+          <span className="text-gradient">.SURATI</span>
         </motion.div>
 
         {/* Desktop Nav */}

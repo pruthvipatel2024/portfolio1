@@ -12,7 +12,7 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
           <div>
             <div className="text-2xl font-black mb-4">
-              PRUTHVI<span className="text-gradient">.PATEL</span>
+              PRUTHVI<span className="text-gradient">.SURATI</span>
             </div>
             <p className="text-slate-500 max-w-sm">
               Designing and developing digital products with a focus on impact and efficiency.
@@ -41,7 +41,7 @@ const Footer = () => {
 
         <div className="flex flex-col md:flex-row justify-between items-center pt-10 border-t border-white/5 text-slate-600 text-[10px] font-bold uppercase tracking-[0.2em]">
           <div className="mb-4 md:mb-0">
-            © 2026 Pruthvi Patel. Built with Passion.
+            © 2026 Pruthvi Surati. Built with Passion.
           </div>
           <div className="flex space-x-8">
             <a href="https://github.com/pruthvipatel2024" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Github</a>
