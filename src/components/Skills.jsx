@@ -1,6 +1,96 @@
 import React from 'react';
 import { Globe, Terminal, Layers, Database, Code2, Layout } from 'lucide-react';
-import { motion } from 'framer-motion';
+import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
+
+const SkillCard = ({ cat, i }) => {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const mouseXSpring = useSpring(x);
+  const mouseYSpring = useSpring(y);
+
+  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["15deg", "-15deg"]);
+  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-15deg", "15deg"]);
+
+  const handleMouseMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const width = rect.width;
+    const height = rect.height;
+    const mouseX = e.clientX - rect.left;
+    const mouseY = e.clientY - rect.top;
+
+    const xPct = mouseX / width - 0.5;
+    const yPct = mouseY / height - 0.5;
+
+    x.set(xPct);
+    y.set(yPct);
+  };
+
+  const handleMouseLeave = () => {
+    x.set(0);
+    y.set(0);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true }}
+      transition={{ delay: i * 0.1 }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        rotateY,
+        rotateX,
+        transformStyle: "preserve-3d",
+      }}
+      className="group glass p-10 rounded-[2.5rem] relative overflow-hidden transition-all h-full"
+    >
+      <div 
+        style={{ transform: "translateZ(50px)" }}
+        className={`absolute inset-0 bg-gradient-to-br ${cat.color} opacity-0 group-hover:opacity-100 transition-opacity`} 
+      />
+      
+      <div 
+        style={{ transform: "translateZ(60px)", transformStyle: "preserve-3d" }}
+        className="relative z-10"
+      >
+        <div 
+          style={{ transform: "translateZ(40px)" }}
+          className="w-16 h-16 glass rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform"
+        >
+          {cat.icon}
+        </div>
+        <h4 
+          style={{ transform: "translateZ(30px)" }}
+          className="text-2xl font-bold mb-4"
+        >
+          {cat.title}
+        </h4>
+        <p 
+          style={{ transform: "translateZ(20px)" }}
+          className="text-slate-400 text-sm mb-8 leading-relaxed"
+        >
+          {cat.desc}
+        </p>
+        
+        <div 
+          style={{ transform: "translateZ(10px)" }}
+          className="flex flex-wrap gap-3"
+        >
+          {cat.skills.map(skill => (
+            <span 
+              key={skill} 
+              className="px-4 py-1.5 glass rounded-full text-xs font-medium text-slate-300 border border-white/5 group-hover:border-white/20 transition-colors"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
 
 const Skills = () => {
   const skillCategories = [
@@ -66,36 +156,7 @@ const Skills = () => {
 
         <div className="grid md:grid-cols-3 gap-8">
           {skillCategories.map((cat, i) => (
-            <motion.div
-              key={cat.title}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: i * 0.1 }}
-              whileHover={{ y: -10 }}
-              className={`group glass p-10 rounded-[2.5rem] relative overflow-hidden transition-all`}
-            >
-              <div className={`absolute inset-0 bg-gradient-to-br ${cat.color} opacity-0 group-hover:opacity-100 transition-opacity`} />
-              
-              <div className="relative z-10">
-                <div className="w-16 h-16 glass rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 transition-transform">
-                  {cat.icon}
-                </div>
-                <h4 className="text-2xl font-bold mb-4">{cat.title}</h4>
-                <p className="text-slate-400 text-sm mb-8 leading-relaxed">{cat.desc}</p>
-                
-                <div className="flex flex-wrap gap-3">
-                  {cat.skills.map(skill => (
-                    <span 
-                      key={skill} 
-                      className="px-4 py-1.5 glass rounded-full text-xs font-medium text-slate-300 border border-white/5 group-hover:border-white/20 transition-colors"
-                    >
-                      {skill}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </motion.div>
+            <SkillCard key={cat.title} cat={cat} i={i} />
           ))}
         </div>
       </div>
@@ -104,3 +165,4 @@ const Skills = () => {
 };
 
 export default Skills;
+

@@ -1,17 +1,46 @@
-import React from 'react';
-import { motion } from 'framer-motion';
-import { ChevronRight, Terminal, Globe, Cpu } from 'lucide-react';
+import React, { useRef } from 'react';
+import { motion, useScroll, useTransform, useSpring, useMotionValue } from 'framer-motion';
+import { ChevronRight, Terminal, Globe, Cpu, MousePointer2 } from 'lucide-react';
 
 const Hero = () => {
+  const containerRef = useRef(null);
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+
+  const handleMouseMove = (e) => {
+    const { clientX, clientY } = e;
+    const { innerWidth, innerHeight } = window;
+    const x = (clientX / innerWidth) - 0.5;
+    const y = (clientY / innerHeight) - 0.5;
+    mouseX.set(x);
+    mouseY.set(y);
+  };
+
+  const springConfig = { damping: 25, stiffness: 150 };
+  const smoothX = useSpring(mouseX, springConfig);
+  const smoothY = useSpring(mouseY, springConfig);
+
+  const rotateX = useTransform(smoothY, [-0.5, 0.5], ["10deg", "-10deg"]);
+  const rotateY = useTransform(smoothX, [-0.5, 0.5], ["-10deg", "10deg"]);
+  
+  const moveX = useTransform(smoothX, [-0.5, 0.5], ["-30px", "30px"]);
+  const moveY = useTransform(smoothY, [-0.5, 0.5], ["-30px", "30px"]);
+
   return (
-    <section id="home" className="relative min-h-screen flex items-center pt-20 overflow-hidden">
+    <section 
+      id="home" 
+      onMouseMove={handleMouseMove}
+      className="relative min-h-screen flex items-center pt-20 overflow-hidden"
+    >
       {/* Dynamic Background Elements */}
-      <div className="absolute top-1/4 -left-20 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] animate-pulse" />
-      <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-secondary/20 rounded-full blur-[120px] animate-pulse delay-700" />
+      <div className="absolute top-1/4 -left-20 w-[600px] h-[600px] bg-primary/20 rounded-full blur-[140px] animate-pulse" />
+      <div className="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-secondary/20 rounded-full blur-[140px] animate-pulse delay-700" />
       
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 mix-blend-overlay pointer-events-none" />
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
+      {/* Grid Pattern with Parallax */}
+      <motion.div 
+        style={{ x: moveX, y: moveY }}
+        className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" 
+      />
 
       <div className="container mx-auto px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
@@ -40,7 +69,7 @@ const Hero = () => {
               </h1>
               
               <p className="text-slate-400 text-xl mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Hi, I'm <span className="text-white font-semibold">Pruthvi Surati</span>. A passionate Fullstack Developer with a hands-on approach to learning. Although new to the professional industry, I have built 20+ real-world projects, mastering management systems and complex web architectures through code.
+                Hi, I'm <span className="text-white font-semibold">Pruthvi Surati</span>. A passionate Fullstack Developer. I specialize in building <span className="text-white font-medium italic">immersive digital experiences</span> that bridge the gap between design and technology.
               </p>
               
               <div className="flex flex-wrap justify-center lg:justify-start gap-6">
@@ -66,47 +95,58 @@ const Hero = () => {
 
           <div className="lg:w-2/5 relative">
             <motion.div
-              initial={{ opacity: 0, scale: 0.8, rotate: -5 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
+              style={{
+                rotateX,
+                rotateY,
+                perspective: 1000,
+                transformStyle: "preserve-3d",
+              }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 1, ease: "easeOut" }}
-              className="relative z-20"
+              className="relative z-20 group"
             >
-              <div className="relative w-72 h-72 md:w-[450px] md:h-[450px]">
+              <div 
+                style={{ transform: "translateZ(100px)" }}
+                className="relative w-72 h-72 md:w-[450px] md:h-[450px]"
+              >
                 {/* Main Visual */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-accent/30 rounded-full animate-pulse blur-3xl" />
-                <div className="relative h-full w-full rounded-full glass border border-white/20 flex items-center justify-center overflow-hidden shadow-2xl shadow-primary/20">
-                  <Terminal size={180} className="text-slate-700/50 absolute -bottom-10 -right-10 rotate-12" />
-                  <Cpu size={120} className="text-primary/20 absolute top-10 left-10 -rotate-12" />
+                <div className="relative h-full w-full rounded-full glass border border-white/20 flex items-center justify-center overflow-hidden shadow-2xl shadow-primary/20 backdrop-blur-3xl">
+                  <Terminal size={180} className="text-slate-700/30 absolute -bottom-10 -right-10 rotate-12" />
+                  <Cpu size={120} className="text-primary/10 absolute top-10 left-10 -rotate-12" />
                   
                   <div className="z-10 text-center">
-                     <motion.div 
-                       animate={{ 
-                         rotateY: [0, 360],
-                       }}
-                       transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                       className="w-48 h-48 md:w-64 md:h-64 rounded-full border-2 border-dashed border-white/20 flex items-center justify-center"
-                     >
-                        <Globe size={100} className="text-gradient" />
-                     </motion.div>
+                    <motion.div 
+                      animate={{ 
+                        rotateY: [0, 360],
+                      }}
+                      transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                      className="w-48 h-48 md:w-64 md:h-64 rounded-full border-2 border-dashed border-white/20 flex items-center justify-center"
+                    >
+                      <Globe size={120} className="text-gradient" />
+                    </motion.div>
                   </div>
 
-                  {/* Floating Tech Badges */}
+                  {/* Floating Tech Badges with their own parallax */}
                   <motion.div 
+                    style={{ transform: "translateZ(80px)" }}
                     animate={{ y: [0, -15, 0] }} 
                     transition={{ duration: 4, repeat: Infinity }} 
-                    className="absolute top-20 right-0 glass px-5 py-3 rounded-2xl text-xs font-bold flex items-center gap-3 shadow-xl"
+                    className="absolute top-20 right-0 glass px-5 py-3 rounded-2xl text-xs font-bold flex items-center gap-3 shadow-xl border border-white/10"
                   >
                     <div className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]" /> 
-                    PHP/React Pro
+                    React/Vite Pro
                   </motion.div>
                   
                   <motion.div 
+                    style={{ transform: "translateZ(120px)" }}
                     animate={{ y: [0, 15, 0] }} 
                     transition={{ duration: 5, repeat: Infinity, delay: 1 }} 
-                    className="absolute bottom-20 left-0 glass px-5 py-3 rounded-2xl text-xs font-bold flex items-center gap-3 shadow-xl"
+                    className="absolute bottom-20 left-0 glass px-5 py-3 rounded-2xl text-xs font-bold flex items-center gap-3 shadow-xl border border-white/10"
                   >
-                    <Globe size={16} className="text-primary" /> 
-                    Fullstack Architecture
+                    <MousePointer2 size={16} className="text-primary" /> 
+                    3D Interactive
                   </motion.div>
                 </div>
               </div>
@@ -114,8 +154,32 @@ const Hero = () => {
           </div>
         </div>
       </div>
+
+      {/* Floating background particles */}
+      {[...Array(6)].map((_, i) => (
+        <motion.div
+          key={i}
+          initial={{ opacity: 0 }}
+          animate={{ 
+            opacity: [0, 0.5, 0],
+            y: [0, -100, 0],
+            x: [0, Math.random() * 50 - 25, 0]
+          }}
+          transition={{ 
+            duration: 5 + Math.random() * 5, 
+            repeat: Infinity, 
+            delay: Math.random() * 5 
+          }}
+          className="absolute w-2 h-2 bg-white/10 rounded-full blur-sm pointer-events-none"
+          style={{
+            top: `${Math.random() * 100}%`,
+            left: `${Math.random() * 100}%`,
+          }}
+        />
+      ))}
     </section>
   );
 };
 
 export default Hero;
+

@@ -90,9 +90,22 @@ const Contact = () => {
               initial={{ opacity: 0, scale: 0.95 }}
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
-              className="glass p-10 md:p-12 rounded-[3rem] border border-white/10 shadow-2xl"
+              whileHover={{ 
+                rotateX: -5,
+                rotateY: 5,
+                transition: { duration: 0.5 }
+              }}
+              style={{
+                perspective: 1000,
+                transformStyle: "preserve-3d",
+              }}
+              className="glass p-10 md:p-12 rounded-[3rem] border border-white/10 shadow-2xl group/form"
             >
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form 
+                onSubmit={handleSubmit} 
+                className="space-y-6"
+                style={{ transform: "translateZ(30px)" }}
+              >
                 <div className="grid md:grid-cols-2 gap-6">
                   <div className="space-y-2">
                     <label className="text-[10px] font-black uppercase tracking-[0.2em] text-slate-500 ml-4">Full Name</label>
@@ -133,10 +146,11 @@ const Contact = () => {
                 </div>
                 <button 
                   type="submit" 
-                  className="btn-primary w-full py-5 rounded-[2rem] flex items-center justify-center gap-3 group"
+                  style={{ transform: "translateZ(20px)" }}
+                  className="btn-primary w-full py-5 rounded-[2rem] flex items-center justify-center gap-3 group/btn"
                 >
                   Send Message 
-                  <Send size={20} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
+                  <Send size={20} className="group-hover/btn:translate-x-1 group-hover/btn:-translate-y-1 transition-transform" />
                 </button>
               </form>
             </motion.div>
