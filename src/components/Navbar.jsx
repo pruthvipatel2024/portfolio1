@@ -33,7 +33,7 @@ const Navbar = () => {
     <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
       isScrolled && !isMenuOpen ? 'py-4 glass-nav border-b border-white/10' : 'py-6 md:py-8 bg-transparent'
     }`}>
-      <div className="container mx-auto px-6 flex justify-between items-center relative z-[101]">
+      <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center relative z-[101]">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -97,6 +97,8 @@ const Navbar = () => {
             <div className="absolute top-1/4 -right-20 w-64 h-64 bg-primary/20 rounded-full blur-[120px]" />
             <div className="absolute bottom-1/4 -left-20 w-64 h-64 bg-secondary/20 rounded-full blur-[120px]" />
             
+
+
             <div className="flex flex-col space-y-8 text-center relative z-10">
               {navLinks.map((link, i) => (
                 <motion.a 
@@ -106,7 +108,7 @@ const Navbar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: i * 0.1 + 0.2 }}
                   onClick={() => setIsMenuOpen(false)}
-                  className="text-4xl font-black text-white hover:text-primary transition-colors tracking-tighter"
+                  className="text-2xl font-black text-white hover:text-primary transition-colors tracking-tighter"
                 >
                   {link.name}
                 </motion.a>

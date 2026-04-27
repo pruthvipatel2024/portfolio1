@@ -51,7 +51,7 @@ const ProjectCard = ({ project, i }) => {
         style={{ transform: "translateZ(50px)" }}
         className="lg:w-3/5 w-full"
       >
-        <div className="group relative rounded-[2.5rem] overflow-hidden glass border border-white/10 aspect-video shadow-2xl">
+        <div className="group relative rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden glass border border-white/10 aspect-[4/3] sm:aspect-video shadow-2xl">
           <img
             src={project.image}
             alt={project.title}
@@ -84,7 +84,7 @@ const ProjectCard = ({ project, i }) => {
           ))}
         </div>
 
-        <div className="flex items-center gap-8">
+        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8">
           <a
             href={project.github}
             target="_blank"
@@ -140,7 +140,7 @@ const Projects = () => {
 
   return (
     <section id="projects" className="py-32 bg-slate-900/30">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="text-center mb-24">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
@@ -155,7 +155,7 @@ const Projects = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl font-black mb-8"
+            className="text-3xl sm:text-4xl md:text-6xl font-black mb-8"
           >
             Real World <span className="text-gradient">Solutions.</span>
           </motion.h3>

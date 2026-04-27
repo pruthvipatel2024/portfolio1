@@ -44,7 +44,7 @@ const SkillCard = ({ cat, i }) => {
         rotateX,
         transformStyle: "preserve-3d",
       }}
-      className="group glass p-10 rounded-[2.5rem] relative overflow-hidden transition-all h-full"
+      className="group glass p-8 sm:p-10 rounded-[2rem] sm:rounded-[2.5rem] relative overflow-hidden transition-all h-full"
     >
       <div 
         style={{ transform: "translateZ(50px)" }}
@@ -119,7 +119,7 @@ const Skills = () => {
 
   return (
     <section id="skills" className="py-32 relative">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-4 sm:px-6">
         <div className="flex flex-col md:flex-row justify-between items-end mb-20 gap-8">
           <div className="md:w-1/2">
             <motion.div
@@ -128,7 +128,7 @@ const Skills = () => {
               viewport={{ once: true }}
             >
               <h2 className="text-sm font-bold tracking-[0.2em] text-primary uppercase mb-4">Core Competencies</h2>
-              <h3 className="text-4xl md:text-5xl font-black mb-6">My Technical <span className="text-gradient">Arsenal.</span></h3>
+              <h3 className="text-3xl sm:text-4xl md:text-5xl font-black mb-6">My Technical <span className="text-gradient">Arsenal.</span></h3>
               <p className="text-slate-400 text-lg leading-relaxed">
                 A versatile stack focused on building scalable management systems and high-performance retail solutions.
               </p>
@@ -143,7 +143,7 @@ const Skills = () => {
             <div className="glass p-6 rounded-3xl flex items-center gap-6">
                 <div className="text-right">
                   <div className="text-2xl font-black text-white">3+</div>
-                  <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">Years Exp.</div>
+                  <div className="text-xs font-bold text-slate-500 uppercase tracking-widest">Years Building</div>
                 </div>
                 <div className="w-px h-12 bg-white/10" />
                 <div className="text-right">

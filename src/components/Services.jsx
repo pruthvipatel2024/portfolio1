@@ -146,7 +146,7 @@ const Services = () => {
         <div className="absolute bottom-1/4 -right-20 w-[500px] h-[500px] bg-secondary/5 rounded-full blur-[120px]" />
       </div>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="flex flex-col items-center text-center mb-24">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -154,7 +154,7 @@ const Services = () => {
             viewport={{ once: true }}
           >
             <h2 className="text-sm font-bold tracking-[0.2em] text-primary uppercase mb-4">What I Offer</h2>
-            <h3 className="text-4xl md:text-6xl font-black mb-6">Premium <span className="text-gradient">Services.</span></h3>
+            <h3 className="text-3xl sm:text-4xl md:text-6xl font-black mb-6">Premium <span className="text-gradient">Services.</span></h3>
             <div className="w-24 h-1.5 bg-gradient-to-r from-primary to-secondary rounded-full mx-auto mb-8" />
             <p className="text-slate-400 text-lg max-w-2xl leading-relaxed">
               Transforming your ideas into high-impact digital experiences with cutting-edge technology and 3D interactive designs.

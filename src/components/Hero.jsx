@@ -42,7 +42,7 @@ const Hero = () => {
         className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)]" 
       />
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 relative z-10">
         <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
           <div className="lg:w-3/5 text-center lg:text-left">
             <motion.div
@@ -63,21 +63,21 @@ const Hero = () => {
                 AVAILABLE FOR NEW PROJECTS
               </motion.div>
               
-              <h1 className="text-6xl md:text-8xl font-black mb-8 leading-none tracking-tight">
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-black mb-8 leading-tight tracking-tight">
                 Building <br />
                 <span className="text-gradient">Digital Legacy.</span>
               </h1>
               
-              <p className="text-slate-400 text-xl mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
+              <p className="text-slate-400 text-lg md:text-xl mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed px-2 sm:px-0">
                 Hi, I'm <span className="text-white font-semibold">Pruthvi Surati</span>. A passionate Fullstack Developer. I specialize in building <span className="text-white font-medium italic">immersive digital experiences</span> that bridge the gap between design and technology.
               </p>
               
-              <div className="flex flex-wrap justify-center lg:justify-start gap-6">
+              <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-4 sm:gap-6">
                 <motion.a 
                   href="#projects" 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="btn-primary flex items-center gap-3"
+                  className="btn-primary flex items-center justify-center gap-3"
                 >
                   Explore Work <ChevronRight size={20} />
                 </motion.a>
@@ -85,7 +85,7 @@ const Hero = () => {
                   href="#contact" 
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
-                  className="btn-outline"
+                  className="btn-outline flex items-center justify-center"
                 >
                   Get In Touch
                 </motion.a>
@@ -108,7 +108,7 @@ const Hero = () => {
             >
               <div 
                 style={{ transform: "translateZ(100px)" }}
-                className="relative w-72 h-72 md:w-[450px] md:h-[450px]"
+                className="relative w-64 h-64 sm:w-80 sm:h-80 md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px]"
               >
                 {/* Main Visual */}
                 <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-accent/30 rounded-full animate-pulse blur-3xl" />
@@ -122,7 +122,7 @@ const Hero = () => {
                         rotateY: [0, 360],
                       }}
                       transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                      className="w-48 h-48 md:w-64 md:h-64 rounded-full border-2 border-dashed border-white/20 flex items-center justify-center"
+                      className="w-40 h-40 sm:w-48 sm:h-48 md:w-64 md:h-64 rounded-full border-2 border-dashed border-white/20 flex items-center justify-center"
                     >
                       <Globe size={120} className="text-gradient" />
                     </motion.div>
@@ -133,9 +133,9 @@ const Hero = () => {
                     style={{ transform: "translateZ(80px)" }}
                     animate={{ y: [0, -15, 0] }} 
                     transition={{ duration: 4, repeat: Infinity }} 
-                    className="absolute top-20 right-0 glass px-5 py-3 rounded-2xl text-xs font-bold flex items-center gap-3 shadow-xl border border-white/10"
+                    className="absolute top-10 sm:top-20 right-2 sm:right-0 glass px-4 py-2 sm:px-5 sm:py-3 rounded-xl sm:rounded-2xl text-[10px] sm:text-xs font-bold flex items-center gap-2 sm:gap-3 shadow-xl border border-white/10"
                   >
-                    <div className="w-2.5 h-2.5 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]" /> 
+                    <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.5)]" /> 
                     React/Vite Pro
                   </motion.div>
                   
