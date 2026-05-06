@@ -1,0 +1,20 @@
+{
+    "routes": [
+        {
+            "src": "/sitemap.xml",
+            "dest": "/sitemap.xml"
+        },
+        {
+            "src": "/robots.txt",
+            "dest": "/robots.txt"
+        },
+        {
+            "src": "/google712fe2abd2c6b211.html",
+            "dest": "/google712fe2abd2c6b211.html"
+        },
+        {
+            "src": "/(.*)",
+            "dest": "/index.html"
+        }
+    ]
+}
