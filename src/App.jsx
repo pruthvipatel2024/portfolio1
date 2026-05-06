@@ -7,6 +7,7 @@ import Projects from './components/Projects';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
 import MouseFollower from './components/MouseFollower';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const App = () => {
   return (
