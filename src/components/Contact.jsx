@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Send, Mail, Linkedin, Twitter, ArrowUpRight } from 'lucide-react';
+import { Send, Mail, Linkedin, Instagram, ArrowUpRight } from 'lucide-react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -67,12 +67,14 @@ const Contact = () => {
 
                 <div className="flex gap-4">
                   {[
-                    { icon: <Linkedin size={20} />, label: 'LinkedIn', href: '#' },
-                    { icon: <Twitter size={20} />, label: 'Twitter', href: '#' },
+                    { icon: <Linkedin size={20} />, label: 'LinkedIn', href: 'https://www.linkedin.com/in/pruthvi-patel--/' },
+                    { icon: <Instagram size={20} />, label: 'Instagram', href: 'https://www.instagram.com/pruthvi._.506/' },
                   ].map((social, i) => (
                     <motion.a
                       key={social.label}
                       href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
                       initial={{ opacity: 0, y: 10 }}
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true }}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Github, Linkedin, Twitter, ArrowUp } from 'lucide-react';
+import { Github, Linkedin, Instagram, ArrowUp } from 'lucide-react';
 
 const Footer = () => {
   const scrollToTop = () => {
@@ -45,8 +45,8 @@ const Footer = () => {
           </div>
           <div className="flex space-x-8">
             <a href="https://github.com/pruthvipatel2024" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Github</a>
-            <a href="#" className="hover:text-primary transition-colors">Linkedin</a>
-            <a href="#" className="hover:text-primary transition-colors">Twitter</a>
+            <a href="https://www.linkedin.com/in/pruthvi-patel--/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Linkedin</a>
+            <a href="https://www.instagram.com/pruthvi._.506/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Instagram</a>
           </div>
         </div>
       </div>
