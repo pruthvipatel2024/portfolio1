@@ -139,14 +139,14 @@ const Projects = () => {
   ];
 
   return (
-    <section id="projects" className="py-32 bg-slate-900/30">
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="text-center mb-24">
+    <section id="projects" className="py-20 md:py-32 bg-slate-900/30">
+      <div className="section-container">
+        <div className="text-center mb-12 md:mb-24">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-sm font-bold tracking-[0.2em] text-secondary uppercase mb-4"
+            className="eyebrow text-secondary mb-4"
           >
             Featured Work
           </motion.h2>
@@ -161,7 +161,7 @@ const Projects = () => {
           </motion.h3>
         </div>
 
-        <div className="space-y-24">
+        <div className="space-y-16 md:space-y-24">
           {projects.map((project, i) => (
             <ProjectCard key={project.title} project={project} i={i} />
           ))}
@@ -172,4 +172,3 @@ const Projects = () => {
 };
 
 export default Projects;
-

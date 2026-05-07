@@ -11,7 +11,8 @@ import { SpeedInsights } from "@vercel/speed-insights/react"
 
 const App = () => {
   return (
-    <div className="bg-slate-950 min-h-screen text-slate-100 selection:bg-primary/30 selection:text-white overflow-x-hidden">
+    <div className="min-h-screen text-slate-100 selection:bg-primary/30 selection:text-white overflow-x-hidden">
+      <div className="fixed inset-0 pointer-events-none bg-[linear-gradient(to_right,rgba(255,255,255,0.035)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.035)_1px,transparent_1px)] bg-[size:72px_72px] [mask-image:linear-gradient(to_bottom,black,transparent_85%)]" />
       <MouseFollower />
       <Navbar />
       <main>

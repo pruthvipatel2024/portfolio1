@@ -8,7 +8,7 @@ const Footer = () => {
 
   return (
     <footer className="py-20 border-t border-white/5 bg-slate-950 relative overflow-hidden">
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="section-container relative z-10">
         <div className="flex flex-col md:flex-row justify-between items-center gap-12 mb-20">
           <div>
             <div className="text-2xl font-black mb-4">
@@ -43,7 +43,7 @@ const Footer = () => {
           <div className="mb-4 md:mb-0">
             © 2026 Pruthvi Surati. Built with Passion.
           </div>
-          <div className="flex space-x-8">
+          <div className="flex flex-wrap justify-center md:justify-start gap-6 md:gap-8">
             <a href="https://github.com/pruthvipatel2024" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Github</a>
             <a href="https://www.linkedin.com/in/pruthvi-patel--/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Linkedin</a>
             <a href="https://www.instagram.com/pruthvi._.506/" target="_blank" rel="noopener noreferrer" className="hover:text-primary transition-colors">Instagram</a>

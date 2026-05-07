@@ -40,16 +40,24 @@
   body {
     @apply bg-slate-950 text-slate-100 antialiased selection:bg-primary/30 overflow-x-hidden;
     font-feature-settings: "cv11", "ss01";
+    background:
+      radial-gradient(circle at top left, rgba(99, 102, 241, 0.16), transparent 34rem),
+      radial-gradient(circle at 85% 12%, rgba(236, 72, 153, 0.12), transparent 30rem),
+      #020617;
+  }
+
+  section {
+    scroll-margin-top: 6rem;
   }
 }
 
 @layer components {
   .glass {
-    @apply backdrop-blur-xl bg-white/5 border border-white/10;
+    @apply backdrop-blur-xl bg-white/[0.06] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.08)];
   }
 
   .glass-nav {
-    @apply backdrop-blur-md bg-slate-950/80;
+    @apply backdrop-blur-xl bg-slate-950/75 shadow-2xl shadow-black/20;
   }
 
   .text-gradient {
@@ -57,11 +65,19 @@
   }
 
   .btn-primary {
-    @apply px-10 py-4 rounded-full bg-gradient-to-r from-primary to-secondary text-white font-bold transition-all hover:scale-105 active:scale-95 shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)];
+    @apply px-8 sm:px-10 py-3.5 sm:py-4 rounded-full bg-gradient-to-r from-primary via-secondary to-accent bg-[length:200%_200%] text-white font-bold transition-all hover:scale-[1.03] hover:bg-right active:scale-95 shadow-[0_18px_45px_rgba(99,102,241,0.28)] hover:shadow-[0_22px_55px_rgba(168,85,247,0.36)] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950;
   }
 
   .btn-outline {
-    @apply px-10 py-4 rounded-full border border-white/10 bg-white/5 hover:bg-white/10 hover:border-white/20 transition-all font-bold active:scale-95;
+    @apply px-8 sm:px-10 py-3.5 sm:py-4 rounded-full border border-white/10 bg-white/[0.04] hover:bg-white/10 hover:border-white/20 transition-all font-bold active:scale-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/30 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950;
+  }
+
+  .section-container {
+    @apply container mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  .eyebrow {
+    @apply text-xs sm:text-sm font-black tracking-[0.22em] uppercase;
   }
 }
 

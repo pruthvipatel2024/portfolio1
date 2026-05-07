@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Menu, X } from 'lucide-react';
+import { Menu, X, Github, Linkedin, Instagram } from 'lucide-react';
 
 const Navbar = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -31,13 +31,13 @@ const Navbar = () => {
 
   return (
     <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-300 ${
-      isScrolled && !isMenuOpen ? 'py-4 glass-nav border-b border-white/10' : 'py-6 md:py-8 bg-transparent'
+      isScrolled && !isMenuOpen ? 'py-3 md:py-4 glass-nav border-b border-white/10' : 'py-5 md:py-7 bg-transparent'
     }`}>
-      <div className="container mx-auto px-4 sm:px-6 flex justify-between items-center relative z-[101]">
+      <div className="section-container flex justify-between items-center relative z-[101]">
         <motion.div 
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
-          className="text-xl md:text-2xl font-bold tracking-tighter"
+          className="text-xl md:text-2xl font-black tracking-tighter"
         >
           <a href="#home" className="flex items-center" onClick={() => setIsMenuOpen(false)}>
             <span className="text-white">PRUTHVI</span>
@@ -46,7 +46,7 @@ const Navbar = () => {
         </motion.div>
 
         {/* Desktop Nav */}
-        <div className="hidden md:flex space-x-10 items-center">
+        <div className="hidden md:flex gap-7 lg:gap-10 items-center">
           {navLinks.map((link, i) => (
             <motion.a
               key={link.name}
@@ -54,21 +54,22 @@ const Navbar = () => {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className="text-sm font-medium text-slate-300 hover:text-white transition-colors relative group"
+              className="text-sm font-semibold text-slate-300 hover:text-white transition-colors relative group"
             >
               {link.name}
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
             </motion.a>
           ))}
-          <motion.button 
+          <motion.a 
+            href="#contact"
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
-            className="btn-primary py-2.5 px-8 text-sm"
+            className="btn-primary !py-2.5 !px-7 text-sm"
           >
             Hire Me
-          </motion.button>
+          </motion.a>
         </div>
 
         {/* Mobile Menu Button */}
@@ -78,7 +79,7 @@ const Navbar = () => {
             className="p-3 glass rounded-2xl text-white transition-all active:scale-90"
             aria-label="Toggle Menu"
           >
-            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+            {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
           </button>
         </div>
       </div>
@@ -117,9 +118,33 @@ const Navbar = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.6 }}
-                className="pt-10"
+                className="pt-10 w-full"
               >
-                <button className="btn-primary w-full py-5 text-xl">Hire Me</button>
+                <a href="#contact" onClick={() => setIsMenuOpen(false)} className="btn-primary w-full py-5 text-xl flex items-center justify-center">Hire Me</a>
+              </motion.div>
+
+              {/* Mobile Social Links */}
+              <motion.div 
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7 }}
+                className="flex gap-6 justify-center pt-8"
+              >
+                {[
+                  { icon: <Github size={24} />, href: 'https://github.com/pruthvipatel2024' },
+                  { icon: <Linkedin size={24} />, href: 'https://www.linkedin.com/in/pruthvi-patel--/' },
+                  { icon: <Instagram size={24} />, href: 'https://www.instagram.com/pruthvi._.506/' }
+                ].map((social, i) => (
+                  <a 
+                    key={i} 
+                    href={social.href} 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="w-12 h-12 glass rounded-2xl flex items-center justify-center text-slate-400 hover:text-white"
+                  >
+                    {social.icon}
+                  </a>
+                ))}
               </motion.div>
             </div>
 
