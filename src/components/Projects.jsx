@@ -1,176 +1,172 @@
-import React from 'react';
-import { motion, useMotionValue, useTransform, useSpring } from 'framer-motion';
-import { ExternalLink, Github, ArrowRight } from 'lucide-react';
+import React, { memo } from 'react';
+import { m } from 'framer-motion';
+import { Github, ArrowRight } from 'lucide-react';
 
-const ProjectCard = ({ project, i }) => {
-  const x = useMotionValue(0);
-  const y = useMotionValue(0);
-
-  const mouseXSpring = useSpring(x);
-  const mouseYSpring = useSpring(y);
-
-  const rotateX = useTransform(mouseYSpring, [-0.5, 0.5], ["10deg", "-10deg"]);
-  const rotateY = useTransform(mouseXSpring, [-0.5, 0.5], ["-10deg", "10deg"]);
-
-  const handleMouseMove = (e) => {
-    const rect = e.currentTarget.getBoundingClientRect();
-    const width = rect.width;
-    const height = rect.height;
-    const mouseX = e.clientX - rect.left;
-    const mouseY = e.clientY - rect.top;
-
-    const xPct = mouseX / width - 0.5;
-    const yPct = mouseY / height - 0.5;
-
-    x.set(xPct);
-    y.set(yPct);
-  };
-
-  const handleMouseLeave = () => {
-    x.set(0);
-    y.set(0);
-  };
-
+const ProjectCard = memo(({ project, i }) => {
   return (
-    <motion.div
+    <m.div
       initial={{ opacity: 0, y: 50 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 0.8 }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={{
-        rotateY,
-        rotateX,
-        transformStyle: "preserve-3d",
-      }}
-      className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center relative z-10 group`}
+      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+      className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-20 items-center relative z-10 group`}
     >
-      {/* Image Side */}
-      <div
-        style={{ transform: "translateZ(50px)" }}
-        className="lg:w-3/5 w-full"
-      >
-        <div className="group relative rounded-[1.5rem] sm:rounded-[2.5rem] overflow-hidden glass border border-white/10 aspect-[4/3] sm:aspect-video shadow-2xl">
-          <img
-            src={project.image}
+      {/* Visual Side */}
+      <div className="lg:w-3/5 w-full relative">
+        {/* Cinematic Backdrop Glow */}
+        <div className={`absolute -inset-4 bg-gradient-to-tr from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 blur-2xl rounded-[3rem]`} />
+        
+        <m.div 
+          whileHover={{ y: -10 }}
+          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          className="group relative rounded-[2.5rem] overflow-hidden glass border border-white/10 aspect-video shadow-2xl z-10"
+        >
+          <m.img
+            src={`${project.image}&w=1000&q=80`}
+            srcSet={`${project.image}&w=600&q=70 600w, ${project.image}&w=1000&q=80 1000w, ${project.image}&w=1400&q=85 1400w`}
+            sizes="(max-width: 768px) 100vw, 60vw"
             alt={project.title}
-            className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+            width="1000"
+            height="562"
+            loading="lazy"
+            whileHover={{ scale: 1.05 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+            className="w-full h-full object-cover opacity-90 transition-opacity group-hover:opacity-100"
           />
-          <div className="absolute inset-0 bg-slate-950/40 group-hover:bg-slate-950/20 transition-colors duration-500" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent opacity-40 group-hover:opacity-20 transition-opacity" />
+          
+          {/* Status Badge */}
           <div className="absolute top-6 left-6">
-            <span className="px-4 py-2 glass rounded-full text-[10px] font-black uppercase tracking-widest text-white">
+            <span className="px-5 py-2 glass rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] text-white shadow-xl">
               {project.category}
             </span>
           </div>
-        </div>
+
+
+        </m.div>
       </div>
 
       {/* Content Side */}
-      <div
-        style={{ transform: "translateZ(70px)" }}
-        className="lg:w-2/5 w-full text-left"
-      >
-        <h4 className="text-3xl font-black mb-6 hover:text-primary transition-colors">{project.title}</h4>
-        <p className="text-slate-400 text-lg mb-8 leading-relaxed">
-          {project.desc}
-        </p>
+      <div className="lg:w-2/5 w-full text-left">
+        <m.div
+          initial={{ opacity: 0, x: i % 2 === 0 ? 20 : -20 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.2, duration: 0.8 }}
+        >
+          <h4 className="text-3xl md:text-5xl font-black mb-6 tracking-tight group-hover:text-primary transition-colors duration-500">
+            {project.title}
+          </h4>
+          <p className="text-slate-400 text-lg mb-10 leading-relaxed font-medium">
+            {project.desc}
+          </p>
 
-        <div className="flex flex-wrap gap-2 mb-10">
-          {project.tags.map(tag => (
-            <span key={tag} className="px-4 py-1 bg-white/5 rounded-full text-xs font-semibold text-slate-500 border border-white/5">
-              {tag}
-            </span>
-          ))}
-        </div>
+          <div className="flex flex-wrap gap-3 mb-10">
+            {project.tags.map(tag => (
+              <span key={tag} className="px-4 py-1.5 bg-white/5 border border-white/5 rounded-full text-[11px] font-bold text-slate-500 uppercase tracking-widest group-hover:text-slate-300 group-hover:border-white/10 transition-colors">
+                {tag}
+              </span>
+            ))}
+          </div>
 
-        <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 sm:gap-8">
-          <a
-            href={project.github}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-2 text-sm font-bold text-white hover:text-primary transition-colors group/link"
-          >
-            <Github size={20} className="group-hover/link:rotate-12 transition-transform" />
-            Source Code
-          </a>
-          <a
-            href={project.demo}
-            className="flex items-center gap-2 text-sm font-bold text-white hover:text-secondary transition-colors group/link"
-          >
-            Live Demo
-            <ArrowRight size={18} className="group-hover/link:translate-x-1 transition-transform" />
-          </a>
-        </div>
+          <div className="flex items-center gap-10">
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.2em] text-white hover:text-primary transition-all group/link"
+              aria-label={`View source code for ${project.title}`}
+            >
+              <Github size={20} className="group-hover/link:rotate-12 transition-transform" />
+              Source
+            </a>
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.2em] text-white hover:text-secondary transition-all group/link"
+              aria-label={`View live demo for ${project.title}`}
+            >
+              Live Experience
+              <ArrowRight size={18} className="group-hover/link:translate-x-1.5 transition-transform" />
+            </a>
+          </div>
+        </m.div>
       </div>
-    </motion.div>
+    </m.div>
   );
-};
+});
+
+ProjectCard.displayName = 'ProjectCard';
 
 const Projects = () => {
   const projects = [
     {
       title: 'New Era Beauti Care',
-      category: 'Professional Services',
-      desc: 'A premium beauty parlour website with an integrated appointment booking system. Built for high conversion and elegant user experience.',
-      tags: ['React', 'Next.js', 'Tailwind CSS', 'Booking System'],
-      image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=1200',
+      category: 'Service Platform',
+      desc: 'A premium beauty parlour experience with an integrated cinematic booking system and high-conversion UX.',
+      tags: ['React', 'Tailwind', 'Booking', 'Motion'],
+      image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop',
       github: 'https://github.com/pruthvipatel2024/new-era-beauti-care',
       demo: 'https://new-era-beauti-care.vercel.app/'
     },
     {
       title: 'Enterprise E-Commerce',
       category: 'Retail Architecture',
-      desc: 'A high-performance shopping platform built with Hack (HHVM). Features advanced caching and a sophisticated database schema for handling large traffic.',
-      tags: ['Hack', 'PHP', 'Database Design', 'Caching'],
-      image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=1200',
+      desc: 'High-performance retail engine built with HHVM/Hack, featuring advanced multi-layer caching.',
+      tags: ['Hack', 'HHVM', 'Database', 'Scaling'],
+      image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop',
       github: 'https://github.com/pruthvipatel2024/E-Commerce',
       demo: '#'
     },
     {
-      title: 'Camera Store Marketplace',
-      category: 'E-Commerce Solution',
-      desc: 'A specialized online store for photography gear with integrated payment gateways and a robust inventory management dashboard.',
-      tags: ['PHP', 'JavaScript', 'Tailwind CSS', 'MySQL'],
-      image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&q=80&w=1200',
+      title: 'Camera Store',
+      category: 'Niche Retail',
+      desc: 'Specialized cinematography gear marketplace with robust real-time inventory management.',
+      tags: ['PHP', 'MySQL', 'Tailwind', 'JS'],
+      image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop',
       github: 'https://github.com/pruthvipatel2024/camera-store',
       demo: '#'
     },
     {
-      title: 'Lecturers Payment Management System',
-      category: 'Management System',
-      desc: 'A complete management suite for lecturers payments. Features include student information management, payment tracking, and report generation.',
-      tags: ['PHP', 'AJAX', 'MySQL', 'Responsive UI'],
-      image: 'https://images.unsplash.com/photo-1496179356921-5f385945b45e?auto=format&fit=crop&q=80&w=1200',
+      title: 'Payment Mgmt System',
+      category: 'Fintech Suite',
+      desc: 'Complete financial management ecosystem for educational institutions with automated reporting.',
+      tags: ['PHP', 'AJAX', 'MySQL', 'Admin'],
+      image: 'https://images.unsplash.com/photo-1496179356921-5f385945b45e?auto=format&fit=crop',
       github: 'https://github.com/pruthvipatel2024/project-1',
       demo: '#'
     }
   ];
 
   return (
-    <section id="projects" className="py-20 md:py-32 bg-slate-900/30">
+    <section id="projects" className="py-24 md:py-36 relative overflow-hidden bg-slate-900/10">
+      {/* Background Cinematic Texture */}
+      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] pointer-events-none" />
+
       <div className="section-container">
-        <div className="text-center mb-12 md:mb-24">
-          <motion.h2
+        <div className="text-center mb-24">
+          <m.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="eyebrow text-secondary mb-4"
+            className="eyebrow text-secondary mb-5"
           >
-            Featured Projects
-          </motion.h2>
-          <motion.h3
+            Digital Portfolio
+          </m.h2>
+          <m.h3
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className="text-3xl sm:text-4xl md:text-6xl font-black mb-8"
+            transition={{ delay: 0.1, duration: 0.8 }}
+            className="text-4xl md:text-7xl font-black mb-10 tracking-tight"
           >
             Real World <span className="text-gradient">Solutions.</span>
-          </motion.h3>
+          </m.h3>
+          <div className="w-24 h-1.5 bg-gradient-to-r from-secondary to-accent rounded-full mx-auto shadow-lg shadow-secondary/20" />
         </div>
 
-        <div className="space-y-16 md:space-y-24">
+        <div className="space-y-32 md:space-y-48">
           {projects.map((project, i) => (
             <ProjectCard key={project.title} project={project} i={i} />
           ))}

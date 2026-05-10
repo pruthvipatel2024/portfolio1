@@ -1,52 +1,61 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useSpring, useMotionValue } from 'framer-motion';
+import { m, useSpring, useMotionValue } from 'framer-motion';
 
 const MouseFollower = () => {
+  const [isVisible, setIsVisible] = useState(false);
   const cursorX = useMotionValue(-100);
   const cursorY = useMotionValue(-100);
   const [isHovering, setIsHovering] = useState(false);
-  
-  const springConfig = { damping: 25, stiffness: 250 };
+
+  const springConfig = { damping: 30, stiffness: 200, restDelta: 0.001 };
   const cursorXSpring = useSpring(cursorX, springConfig);
   const cursorYSpring = useSpring(cursorY, springConfig);
 
   useEffect(() => {
+    // Detect touch device to disable follower
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    setIsVisible(true);
+
     const moveCursor = (e) => {
       cursorX.set(e.clientX - 16);
       cursorY.set(e.clientY - 16);
     };
 
     const handleMouseOver = (e) => {
-      if (e.target.closest('a, button, input, textarea')) {
+      const target = e.target;
+      if (target.closest('a, button, input, textarea')) {
         setIsHovering(true);
       } else {
         setIsHovering(false);
       }
     };
 
-    window.addEventListener('mousemove', moveCursor);
-    window.addEventListener('mouseover', handleMouseOver);
-    
+    window.addEventListener('mousemove', moveCursor, { passive: true });
+    window.addEventListener('mouseover', handleMouseOver, { passive: true });
+
     return () => {
       window.removeEventListener('mousemove', moveCursor);
       window.removeEventListener('mouseover', handleMouseOver);
     };
   }, [cursorX, cursorY]);
 
+  if (!isVisible) return null;
+
   return (
-    <motion.div
-      className="fixed top-0 left-0 w-8 h-8 rounded-full border-2 border-primary/50 pointer-events-none z-[9999] hidden md:block mix-blend-difference"
+    <m.div
+      className="fixed top-0 left-0 w-8 h-8 rounded-full border border-primary/40 pointer-events-none z-[9999] hidden md:block"
       animate={{
-        scale: isHovering ? 2.5 : 1,
-        backgroundColor: isHovering ? "rgba(99, 102, 241, 0.3)" : "rgba(99, 102, 241, 0)",
+        scale: isHovering ? 2 : 1,
+        backgroundColor: isHovering ? "rgba(99, 102, 241, 0.1)" : "rgba(99, 102, 241, 0)",
       }}
       style={{
-        translateX: cursorXSpring,
-        translateY: cursorYSpring,
+        x: cursorXSpring,
+        y: cursorYSpring,
       }}
     >
-      <div className="absolute inset-0 bg-primary/20 rounded-full blur-sm" />
-    </motion.div>
+      <div className="absolute inset-0 bg-primary/10 rounded-full blur-md" />
+    </m.div>
   );
 };
 
