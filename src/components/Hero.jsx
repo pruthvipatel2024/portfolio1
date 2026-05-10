@@ -72,9 +72,9 @@ const Hero = () => {
                 AVAILABLE FOR NEW PROJECTS
               </motion.div>
 
-              <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-black mb-6 md:mb-8 leading-[0.98] tracking-[-0.06em]">
-                Building <br />
-                <span className="text-gradient">Digital Legacy.</span>
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-black mb-6 md:mb-8 leading-[0.98] tracking-[-0.06em]">
+                Pruthvi Surati <br />
+                <span className="text-gradient">Fullstack Developer Portfolio</span>
               </h1>
 
               <p className="text-slate-300/90 text-base md:text-xl mb-10 max-w-2xl mx-auto lg:mx-0 leading-relaxed">

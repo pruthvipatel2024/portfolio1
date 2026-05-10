@@ -47,7 +47,7 @@ const ProjectCard = ({ project, i }) => {
       className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 items-center relative z-10 group`}
     >
       {/* Image Side */}
-      <div 
+      <div
         style={{ transform: "translateZ(50px)" }}
         className="lg:w-3/5 w-full"
       >
@@ -67,7 +67,7 @@ const ProjectCard = ({ project, i }) => {
       </div>
 
       {/* Content Side */}
-      <div 
+      <div
         style={{ transform: "translateZ(70px)" }}
         className="lg:w-2/5 w-full text-left"
       >
@@ -110,6 +110,15 @@ const ProjectCard = ({ project, i }) => {
 const Projects = () => {
   const projects = [
     {
+      title: 'New Era Beauti Care',
+      category: 'Professional Services',
+      desc: 'A premium beauty parlour website with an integrated appointment booking system. Built for high conversion and elegant user experience.',
+      tags: ['React', 'Next.js', 'Tailwind CSS', 'Booking System'],
+      image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&q=80&w=1200',
+      github: 'https://github.com/pruthvipatel2024/new-era-beauti-care',
+      demo: 'https://new-era-beauti-care.vercel.app/'
+    },
+    {
       title: 'Enterprise E-Commerce',
       category: 'Retail Architecture',
       desc: 'A high-performance shopping platform built with Hack (HHVM). Features advanced caching and a sophisticated database schema for handling large traffic.',
@@ -148,7 +157,7 @@ const Projects = () => {
             viewport={{ once: true }}
             className="eyebrow text-secondary mb-4"
           >
-            Featured Work
+            Featured Projects
           </motion.h2>
           <motion.h3
             initial={{ opacity: 0, y: 20 }}

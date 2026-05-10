@@ -40,15 +40,15 @@ const Contact = () => {
           <div className="grid lg:grid-cols-2 gap-16 items-start">
             {/* Left Column */}
             <div>
-              <motion.p
+              <motion.h2
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 className="eyebrow text-accent mb-6"
               >
-                Let's Collaborate
-              </motion.p>
-              <motion.h2
+                Contact
+              </motion.h2>
+              <motion.h3
                 initial={{ opacity: 0, x: -20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
@@ -57,7 +57,7 @@ const Contact = () => {
               >
                 Ready to start <br />
                 your <span className="text-gradient">next project?</span>
-              </motion.h2>
+              </motion.h3>
               
               <div className="space-y-8">
                 {/* Email */}

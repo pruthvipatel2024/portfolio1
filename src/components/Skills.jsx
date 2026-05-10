@@ -127,7 +127,7 @@ const Skills = () => {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
             >
-              <h2 className="eyebrow text-primary mb-4">Core Competencies</h2>
+              <h2 className="eyebrow text-primary mb-4">Skills</h2>
               <h3 className="text-3xl sm:text-4xl md:text-5xl font-black mb-6">My Technical <span className="text-gradient">Arsenal.</span></h3>
               <p className="text-slate-400 text-lg leading-relaxed">
                 A versatile stack focused on building scalable management systems and high-performance retail solutions.

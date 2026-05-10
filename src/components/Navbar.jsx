@@ -22,10 +22,10 @@ const Navbar = () => {
   }, [isMenuOpen]);
 
   const navLinks = [
-    { name: 'About', href: '#home' },
+    { name: 'About Me', href: '#about' },
     { name: 'Skills', href: '#skills' },
     { name: 'Services', href: '#services' },
-    { name: 'Projects', href: '#projects' },
+    { name: 'Featured Projects', href: '#projects' },
     { name: 'Contact', href: '#contact' },
   ];
 
