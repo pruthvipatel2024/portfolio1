@@ -44,47 +44,53 @@ const Navbar = () => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 w-full z-[100] transition-all duration-500 ${
-      isScrolled ? 'py-4 glass-nav' : 'py-8 bg-transparent'
-    }`}>
-      <div className="section-container flex justify-between items-center">
-        <m.div 
-          initial={{ opacity: 0, x: -20 }}
-          animate={{ opacity: 1, x: 0 }}
-          className="text-2xl font-black tracking-tighter"
-        >
-          <a href="#home" className="flex items-center group">
-            <span className="text-white group-hover:text-primary transition-colors">PRUTHVI</span>
-            <span className="text-gradient">.SURATI</span>
-          </a>
-        </m.div>
-
-        {/* Desktop Nav */}
-        <div className="hidden lg:flex gap-12 items-center">
-          <div className="flex gap-10">
-            {navLinks.map((link) => (
-              <NavLink key={link.name} {...link} />
-            ))}
-          </div>
-          <m.a 
-            href="#contact" 
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="btn-primary !py-3 !px-8 shadow-2xl"
+    <>
+      <nav className={`fixed top-0 left-0 w-full z-[102] transition-all duration-500 ${
+        isMenuOpen 
+          ? 'py-8 bg-transparent' 
+          : isScrolled 
+            ? 'py-4 glass-nav' 
+            : 'py-8 bg-transparent'
+      }`}>
+        <div className="section-container flex justify-between items-center">
+          <m.div 
+            initial={{ opacity: 0, x: -20 }}
+            animate={{ opacity: 1, x: 0 }}
+            className="text-2xl font-black tracking-tighter"
           >
-            Hire Me
-          </m.a>
-        </div>
+            <a href="#home" className="flex items-center group">
+              <span className="text-white group-hover:text-primary transition-colors">PRUTHVI</span>
+              <span className="text-gradient">.SURATI</span>
+            </a>
+          </m.div>
 
-        {/* Mobile Menu Button */}
-        <button 
-          onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="lg:hidden p-3 glass rounded-2xl text-white active:scale-90 transition-all border border-white/10"
-          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-        >
-          {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
-        </button>
-      </div>
+          {/* Desktop Nav */}
+          <div className="hidden lg:flex gap-12 items-center">
+            <div className="flex gap-10">
+              {navLinks.map((link) => (
+                <NavLink key={link.name} {...link} />
+              ))}
+            </div>
+            <m.a 
+              href="#contact" 
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="btn-primary !py-3 !px-8 shadow-2xl"
+            >
+              Hire Me
+            </m.a>
+          </div>
+
+          {/* Mobile Menu Button */}
+          <button 
+            onClick={() => setIsMenuOpen(!isMenuOpen)}
+            className="lg:hidden p-3 glass rounded-2xl text-white active:scale-90 transition-all border border-white/10"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {isMenuOpen ? <X size={26} /> : <Menu size={26} />}
+          </button>
+        </div>
+      </nav>
 
       {/* Mobile Nav Overlay - Premium Fullscreen */}
       <AnimatePresence>
@@ -156,7 +162,7 @@ const Navbar = () => {
           </m.div>
         )}
       </AnimatePresence>
-    </nav>
+    </>
   );
 };
 

@@ -74,7 +74,7 @@ const Hero = () => {
 
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-8 leading-[1.2] md:leading-[1.1] lg:leading-[0.98] tracking-tight">
                 Pruthvi Surati <br />
-                <span className="text-gradient">Fullstack Developer Portfolio</span>
+                <span className="text-gradient">Fullstack Developer</span>
               </h1>
 
               <p className="text-slate-300/90 text-lg md:text-xl mb-12 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
