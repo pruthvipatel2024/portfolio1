@@ -135,9 +135,9 @@ const Hero = () => {
               {/* Profile circle */}
               <div className="relative w-full h-full rounded-full border border-white/10 glass overflow-hidden shadow-2xl shadow-black/40">
                 <img
-                  src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800"
+                  src="/profile.png"
                   alt="Pruthvi Surati – Fullstack Developer"
-                  className="w-full h-full object-cover opacity-80"
+                  className="w-full h-full object-cover object-top opacity-100"
                   loading="eager"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />

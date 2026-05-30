@@ -45,16 +45,16 @@ const About = () => {
           <m.div {...fadeUp(0.1)} className="relative">
             <div className="relative rounded-3xl overflow-hidden aspect-square max-w-md glass border border-white/8 shadow-2xl shadow-black/40">
               <img
-                src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800"
+                src="/profile.png"
                 alt="Pruthvi Surati – Developer"
                 loading="lazy"
-                className="w-full h-full object-cover opacity-70"
+                className="w-full h-full object-cover object-top opacity-100"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/20 to-transparent" />
               <div className="absolute bottom-6 left-6 right-6">
                 <div className="glass border border-white/10 rounded-2xl p-4">
                   <div className="text-white font-bold text-sm">Pruthvi Surati</div>
-                  <div className="text-slate-400 text-xs mt-0.5">Fullstack Developer · Surat, India</div>
+                  <div className="text-slate-400 text-xs mt-0.5">Fullstack Developer · Bhavnagar, India</div>
                   <div className="flex items-center gap-2 mt-3">
                     <span className="relative flex h-2 w-2">
                       <span className="animate-ping absolute h-full w-full rounded-full bg-green-400 opacity-75" />
