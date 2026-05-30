@@ -1,175 +1,193 @@
-import React from 'react';
-import { m, useTransform, useSpring, useMotionValue } from 'framer-motion';
-import { ChevronRight, Terminal, Globe, Cpu, MousePointer2 } from 'lucide-react';
+import React, { useEffect, useRef, useState } from 'react';
+import { m, useInView } from 'framer-motion';
+import { ArrowRight, Download, Github, Linkedin, Code2, Globe, Server, Database } from 'lucide-react';
 
-// Optimized particles with fixed positions to prevent layout thrashing
-const particles = Array.from({ length: 6 }, (_, i) => ({
-  id: i,
-  top: [15, 72, 38, 88, 25, 60][i],
-  left: [10, 85, 45, 20, 70, 55][i],
-  duration: [5, 7, 6, 8, 5.5, 9][i],
-  delay: [0, 1.2, 2.5, 0.8, 3.1, 1.8][i],
-  xOffset: [15, -20, 10, -15, 25, -10][i],
-}));
+// Animated counter
+const Counter = ({ end, suffix = '', duration = 2 }) => {
+  const [count, setCount] = useState(0);
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true });
+
+  useEffect(() => {
+    if (!inView) return;
+    let start = 0;
+    const step = end / (duration * 60);
+    const timer = setInterval(() => {
+      start += step;
+      if (start >= end) { setCount(end); clearInterval(timer); }
+      else setCount(Math.floor(start));
+    }, 1000 / 60);
+    return () => clearInterval(timer);
+  }, [inView, end, duration]);
+
+  return <span ref={ref}>{count}{suffix}</span>;
+};
+
+const techBadges = [
+  { icon: <Code2 size={14} />, label: 'React 19', color: 'from-blue-500/20 to-cyan-500/20', border: 'border-blue-500/20', top: '12%', right: '-5%' },
+  { icon: <Server size={14} />, label: 'Node.js', color: 'from-green-500/20 to-emerald-500/20', border: 'border-green-500/20', top: '55%', right: '-8%' },
+  { icon: <Database size={14} />, label: 'MySQL', color: 'from-orange-500/20 to-yellow-500/20', border: 'border-orange-500/20', bottom: '15%', right: '-2%' },
+  { icon: <Globe size={14} />, label: 'PHP & Hack', color: 'from-purple-500/20 to-indigo-500/20', border: 'border-purple-500/20', top: '30%', left: '-10%' },
+];
+
+const containerVariants = {
+  hidden: {},
+  show: { transition: { staggerChildren: 0.12 } }
+};
+const fadeUp = {
+  hidden: { opacity: 0, y: 24 },
+  show: { opacity: 1, y: 0, transition: { duration: 0.7, ease: [0.16, 1, 0.3, 1] } }
+};
 
 const Hero = () => {
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-
-  const handleMouseMove = (e) => {
-    const { clientX, clientY } = e;
-    const { innerWidth, innerHeight } = window;
-    mouseX.set((clientX / innerWidth) - 0.5);
-    mouseY.set((clientY / innerHeight) - 0.5);
-  };
-
-  const springConfig = { damping: 25, stiffness: 150 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
-
-  const rotateX = useTransform(smoothY, [-0.5, 0.5], ['10deg', '-10deg']);
-  const rotateY = useTransform(smoothX, [-0.5, 0.5], ['-10deg', '10deg']);
-  const moveX = useTransform(smoothX, [-0.5, 0.5], ['-30px', '30px']);
-  const moveY = useTransform(smoothY, [-0.5, 0.5], ['-30px', '30px']);
-
   return (
-    <section
-      id="home"
-      onMouseMove={handleMouseMove}
-      className="relative min-h-screen flex items-center pt-24 pb-16 overflow-hidden"
-    >
-      {/* Deep Space Background Orbs - Restored Richness */}
-      <div className="absolute top-1/4 -left-20 w-[600px] h-[600px] bg-primary/25 rounded-full blur-[140px] animate-pulse pointer-events-none" />
-      <div className="absolute bottom-1/4 -right-20 w-[600px] h-[600px] bg-secondary/20 rounded-full blur-[140px] animate-pulse delay-700 pointer-events-none" />
+    <section id="home" className="relative min-h-screen flex items-center pt-28 pb-16 overflow-hidden">
+      {/* Grid background */}
+      <div className="absolute inset-0 grid-bg [mask-image:radial-gradient(ellipse_80%_60%_at_50%_0%,#000_40%,transparent_100%)] pointer-events-none" />
+      
+      {/* Gradient orbs */}
+      <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/8 rounded-full blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 right-1/4 w-[400px] h-[400px] bg-secondary/6 rounded-full blur-[100px] pointer-events-none" />
 
-      {/* Optimized Parallax Grid */}
-      <m.div
-        style={{ x: moveX, y: moveY, willChange: 'transform' }}
-        className="absolute inset-0 bg-[linear-gradient(to_right,#80808012_1px,transparent_1px),linear-gradient(to_bottom,#80808012_1px,transparent_1px)] bg-[size:40px_40px] [mask-image:radial-gradient(ellipse_60%_50%_at_50%_0%,#000_70%,transparent_100%)] pointer-events-none"
-      />
-
-      <div className="section-container relative z-10">
-        <div className="flex flex-col lg:flex-row items-center justify-between gap-12 lg:gap-16 py-8 lg:py-0">
-
-          {/* Text Column */}
-          <div className="lg:w-3/5 text-center lg:text-left">
-            <m.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {/* Premium Available Badge */}
-              <m.div
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 }}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full glass border border-white/10 text-xs font-bold tracking-widest text-primary mb-8"
-              >
-                <span className="relative flex h-2 w-2">
-                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary opacity-75" />
-                  <span className="relative inline-flex rounded-full h-2 w-2 bg-primary" />
-                </span>
-                AVAILABLE FOR NEW PROJECTS
-              </m.div>
-
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-black mb-8 leading-[1.2] md:leading-[1.1] lg:leading-[0.98] tracking-tight">
-                Pruthvi Surati <br />
-                <span className="text-gradient">Fullstack Developer</span>
-              </h1>
-
-              <p className="text-slate-300/90 text-lg md:text-xl mb-12 max-w-2xl mx-auto lg:mx-0 leading-relaxed">
-                Hi, I'm <span className="text-white font-bold">Pruthvi Surati</span>. A passionate developer building <span className="text-white italic">immersive digital experiences</span> that bridge the gap between design and technology.
-              </p>
-
-              <div className="flex flex-col sm:flex-row justify-center lg:justify-start gap-6">
-                <m.a
-                  href="#projects"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-primary flex items-center justify-center gap-3 py-4 px-10"
-                >
-                  Explore Work <ChevronRight size={20} />
-                </m.a>
-                <m.a
-                  href="#contact"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="btn-outline flex items-center justify-center py-4 px-10"
-                >
-                  Get In Touch
-                </m.a>
-              </div>
-            </m.div>
-          </div>
-
-          {/* 3D Visual Column - Restored Depth */}
-          <div className="lg:w-2/5 flex justify-center mt-12 lg:mt-0">
-            <m.div
-              style={{ rotateX, rotateY, perspective: 1000, transformStyle: 'preserve-3d', willChange: 'transform' }}
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-              className="relative z-20 group"
-            >
-              <div
-                style={{ transform: 'translateZ(80px)' }}
-                className="relative w-72 h-72 sm:w-80 sm:h-80 md:w-[400px] md:h-[400px] lg:w-[450px] lg:h-[450px]"
-              >
-                {/* Visual Glow Layers */}
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary/30 to-accent/30 rounded-full animate-pulse blur-3xl opacity-60" />
-
-                {/* Main Orb */}
-                <div className="relative h-full w-full rounded-full glass border border-white/20 flex items-center justify-center overflow-hidden shadow-2xl shadow-primary/20 backdrop-blur-3xl">
-                  <Terminal size={180} className="text-slate-700/30 absolute -bottom-10 -right-10 rotate-12 pointer-events-none" />
-                  <Cpu size={120} className="text-primary/10 absolute top-10 left-10 -rotate-12 pointer-events-none" />
-
-                  <div className="z-10">
-                    <m.div
-                      animate={{ rotateY: [0, 360] }}
-                      transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
-                      className="w-44 h-44 sm:w-56 sm:h-56 md:w-64 md:h-64 rounded-full border-2 border-dashed border-white/20 flex items-center justify-center"
-                    >
-                      <Globe size={110} className="text-primary opacity-80" />
-                    </m.div>
-                  </div>
-
-                  {/* Floating Badges */}
-                  <m.div
-                    animate={{ y: [0, -12, 0] }}
-                    transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-                    className="absolute top-12 sm:top-20 -right-4 glass px-4 py-2.5 rounded-2xl text-[10px] sm:text-xs font-bold flex items-center gap-2 shadow-xl border border-white/20"
-                  >
-                    <div className="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_10px_rgba(34,197,94,0.6)]" />
-                    React / Vite
-                  </m.div>
-
-                  <m.div
-                    animate={{ y: [0, 12, 0] }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                    className="absolute bottom-12 sm:bottom-20 -left-4 glass px-4 py-2.5 rounded-2xl text-[10px] sm:text-xs font-bold flex items-center gap-2 shadow-xl border border-white/20"
-                  >
-                    <MousePointer2 size={13} className="text-primary" />
-                    Interactive
-                  </m.div>
-                </div>
-              </div>
-            </m.div>
-          </div>
-
-        </div>
-      </div>
-
-      {/* Premium Particles - Optimized Animation */}
-      {particles.map((p) => (
+      <div className="section-container relative z-10 w-full">
         <m.div
-          key={p.id}
+          variants={containerVariants}
+          initial="hidden"
+          animate="show"
+          className="flex flex-col lg:flex-row items-center gap-16 lg:gap-20"
+        >
+          {/* Left – Text Column */}
+          <div className="lg:w-[58%] text-center lg:text-left order-2 lg:order-1">
+            {/* Availability badge */}
+            <m.div variants={fadeUp} className="inline-flex items-center gap-2.5 mb-8 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] text-xs font-semibold text-slate-300 tracking-wider">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400" />
+              </span>
+              Available for new projects
+            </m.div>
+
+            {/* Heading */}
+            <m.h1 variants={fadeUp} className="text-5xl sm:text-6xl md:text-7xl lg:text-7xl xl:text-8xl font-black tracking-[-0.03em] leading-[0.95] mb-6">
+              Pruthvi<br />
+              <span className="text-gradient">Surati</span>
+            </m.h1>
+
+            {/* Title line */}
+            <m.p variants={fadeUp} className="text-lg sm:text-xl text-slate-400 font-medium mb-6 max-w-lg mx-auto lg:mx-0">
+              Fullstack Developer — crafting scalable, immersive digital products with modern tech.
+            </m.p>
+
+            {/* Description */}
+            <m.p variants={fadeUp} className="text-sm sm:text-base text-slate-500 mb-10 max-w-lg mx-auto lg:mx-0 leading-relaxed">
+              I specialize in building robust enterprise systems with <span className="text-slate-300">PHP & MySQL</span> and modern web experiences with <span className="text-slate-300">React & Node.js</span>.
+            </m.p>
+
+            {/* CTAs */}
+            <m.div variants={fadeUp} className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start mb-14">
+              <a href="#projects" onClick={(e) => {
+                e.preventDefault();
+                const el = document.getElementById('projects');
+                if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+              }} className="btn-primary">
+                View Projects <ArrowRight size={16} />
+              </a>
+              <a href="/resume.pdf" download className="btn-outline">
+                <Download size={16} /> Download Resume
+              </a>
+            </m.div>
+
+            {/* Stats */}
+            <m.div variants={fadeUp} className="flex items-center gap-8 sm:gap-12 justify-center lg:justify-start">
+              {[
+                { value: 1, suffix: '+', label: 'Years Experience' },
+                { value: 20, suffix: '+', label: 'Projects Built' },
+                { value: 5, suffix: '+', label: 'Technologies' },
+              ].map((stat, i) => (
+                <div key={i} className="text-center lg:text-left">
+                  <div className="text-3xl sm:text-4xl font-black text-white tabular-nums">
+                    <Counter end={stat.value} suffix={stat.suffix} />
+                  </div>
+                  <div className="text-xs text-slate-600 font-medium mt-1 whitespace-nowrap">{stat.label}</div>
+                </div>
+              ))}
+              <div className="hidden sm:block w-px h-10 bg-white/5" />
+              <div className="hidden sm:flex items-center gap-3">
+                <a href="https://github.com/pruthvipatel2024" target="_blank" rel="noopener noreferrer" className="p-2.5 glass rounded-xl text-slate-500 hover:text-white transition-all hover:scale-105">
+                  <Github size={16} />
+                </a>
+                <a href="https://www.linkedin.com/in/pruthvi-patel--/" target="_blank" rel="noopener noreferrer" className="p-2.5 glass rounded-xl text-slate-500 hover:text-white transition-all hover:scale-105">
+                  <Linkedin size={16} />
+                </a>
+              </div>
+            </m.div>
+          </div>
+
+          {/* Right – Visual Column */}
+          <m.div
+            variants={fadeUp}
+            className="lg:w-[42%] order-1 lg:order-2 relative flex justify-center"
+          >
+            <div className="relative w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96">
+              {/* Glow ring */}
+              <div className="absolute inset-0 rounded-full bg-gradient-to-tr from-primary/20 via-secondary/10 to-accent/20 blur-2xl animate-pulse" />
+              
+              {/* Profile circle */}
+              <div className="relative w-full h-full rounded-full border border-white/10 glass overflow-hidden shadow-2xl shadow-black/40">
+                <img
+                  src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&q=80&w=800"
+                  alt="Pruthvi Surati – Fullstack Developer"
+                  className="w-full h-full object-cover opacity-80"
+                  loading="eager"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950/60 via-transparent to-transparent" />
+              </div>
+
+              {/* Rotating dashed ring */}
+              <m.div
+                animate={{ rotate: 360 }}
+                transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+                className="absolute -inset-4 rounded-full border border-dashed border-white/5"
+              />
+              <m.div
+                animate={{ rotate: -360 }}
+                transition={{ duration: 50, repeat: Infinity, ease: 'linear' }}
+                className="absolute -inset-8 rounded-full border border-dashed border-white/[0.03]"
+              />
+
+              {/* Tech badges */}
+              {techBadges.map((b, i) => (
+                <m.div
+                  key={i}
+                  animate={{ y: [0, -8, 0] }}
+                  transition={{ duration: 4 + i, repeat: Infinity, ease: 'easeInOut', delay: i * 0.8 }}
+                  className={`absolute px-3 py-2 rounded-xl border ${b.border} bg-gradient-to-br ${b.color} backdrop-blur-md flex items-center gap-2 text-xs font-semibold text-white whitespace-nowrap shadow-lg`}
+                  style={{ top: b.top, right: b.right, bottom: b.bottom, left: b.left }}
+                >
+                  <span className="opacity-70">{b.icon}</span>
+                  {b.label}
+                </m.div>
+              ))}
+            </div>
+          </m.div>
+        </m.div>
+
+        {/* Scroll indicator */}
+        <m.div
           initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.4, 0], y: [0, -120, 0], x: [0, p.xOffset, 0] }}
-          transition={{ duration: p.duration, repeat: Infinity, delay: p.delay, ease: "linear" }}
-          className="absolute w-2 h-2 bg-white/15 rounded-full blur-sm pointer-events-none"
-          style={{ top: `${p.top}%`, left: `${p.left}%` }}
-        />
-      ))}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 1.5, duration: 0.8 }}
+          className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
+        >
+          <m.div
+            animate={{ y: [0, 8, 0] }}
+            transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
+            className="w-5 h-8 rounded-full border border-white/10 flex items-start justify-center p-1.5"
+          >
+            <div className="w-1 h-1.5 bg-white/30 rounded-full" />
+          </m.div>
+        </m.div>
+      </div>
     </section>
   );
 };

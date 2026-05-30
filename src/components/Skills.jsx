@@ -1,124 +1,173 @@
-import React, { memo } from 'react';
-import { Globe, Terminal, Layers, Database, Layout } from 'lucide-react';
+import React from 'react';
 import { m } from 'framer-motion';
 
-const SkillCard = memo(({ cat, i }) => {
-  return (
-    <m.div
-      initial={{ opacity: 0, y: 30 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ 
-        delay: i * 0.1, 
-        duration: 0.8, 
-        ease: [0.16, 1, 0.3, 1] 
-      }}
-      className="group relative h-full"
-    >
-      {/* Premium Visual Depth Background */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${cat.color} opacity-0 group-hover:opacity-100 transition-all duration-700 rounded-[2.5rem] blur-xl`} />
-      
-      <div className="relative glass p-10 rounded-[2.5rem] border border-white/10 group-hover:border-white/25 transition-all duration-500 h-full overflow-hidden flex flex-col shadow-2xl">
-        {/* Animated Shine Sweep */}
-        <div className="absolute top-0 -inset-full h-full w-1/2 z-5 block transform -skew-x-12 bg-gradient-to-r from-transparent to-white/[0.05] group-hover:animate-[shine_1.2s_ease-in-out]" />
-
-        <div className="w-16 h-16 glass rounded-2xl flex items-center justify-center mb-8 group-hover:scale-110 group-hover:rotate-3 transition-all duration-500 shadow-xl shadow-black/20 text-white">
-          {cat.icon}
-        </div>
-        
-        <h4 className="text-2xl font-black mb-4 tracking-tight group-hover:text-primary transition-colors">{cat.title}</h4>
-        <p className="text-slate-400 text-sm mb-10 leading-relaxed font-medium">
-          {cat.desc}
-        </p>
-        
-        <div className="mt-auto flex flex-wrap gap-2.5">
-          {cat.skills.map(skill => (
-            <span 
-              key={skill} 
-              className="px-4 py-1.5 glass rounded-full text-[11px] font-bold text-slate-300 border border-white/5 group-hover:border-white/20 transition-colors uppercase tracking-widest"
-            >
-              {skill}
-            </span>
-          ))}
-        </div>
-      </div>
-    </m.div>
-  );
-});
-
-SkillCard.displayName = 'SkillCard';
+const skillCategories = [
+  {
+    title: 'Frontend',
+    emoji: '🎨',
+    color: 'from-blue-500/10 to-cyan-500/10',
+    border: 'border-blue-500/15',
+    accent: 'text-blue-400',
+    skills: [
+      { name: 'React 19', level: 88 },
+      { name: 'Tailwind CSS', level: 92 },
+      { name: 'JavaScript ES6+', level: 85 },
+      { name: 'Framer Motion', level: 80 },
+      { name: 'Vite', level: 82 },
+    ]
+  },
+  {
+    title: 'Backend',
+    emoji: '⚙️',
+    color: 'from-emerald-500/10 to-teal-500/10',
+    border: 'border-emerald-500/15',
+    accent: 'text-emerald-400',
+    skills: [
+      { name: 'PHP', level: 90 },
+      { name: 'Hack / HHVM', level: 75 },
+      { name: 'Node.js', level: 70 },
+      { name: 'REST APIs', level: 85 },
+    ]
+  },
+  {
+    title: 'Databases',
+    emoji: '🗄️',
+    color: 'from-orange-500/10 to-yellow-500/10',
+    border: 'border-orange-500/15',
+    accent: 'text-orange-400',
+    skills: [
+      { name: 'MySQL', level: 88 },
+      { name: 'Database Design', level: 85 },
+      { name: 'Query Optimization', level: 75 },
+    ]
+  },
+  {
+    title: 'Cloud & Tools',
+    emoji: '☁️',
+    color: 'from-purple-500/10 to-indigo-500/10',
+    border: 'border-purple-500/15',
+    accent: 'text-purple-400',
+    skills: [
+      { name: 'Vercel', level: 85 },
+      { name: 'Git & GitHub', level: 88 },
+      { name: 'Postman', level: 80 },
+      { name: 'System Design', level: 72 },
+    ]
+  },
+  {
+    title: 'AI Tools',
+    emoji: '🤖',
+    color: 'from-pink-500/10 to-rose-500/10',
+    border: 'border-pink-500/15',
+    accent: 'text-pink-400',
+    skills: [
+      { name: 'GitHub Copilot', level: 82 },
+      { name: 'ChatGPT / Claude', level: 88 },
+      { name: 'Gemini Pro', level: 78 },
+    ]
+  },
+];
 
 const Skills = () => {
-  const skillCategories = [
-    {
-      title: 'Frontend Development',
-      icon: <Layout className="text-blue-400" size={30} />,
-      desc: 'Crafting responsive and interactive user interfaces with modern React ecosystems.',
-      skills: ['React 19', 'Tailwind CSS', 'JavaScript', 'Framer Motion', 'Vite'],
-      color: 'from-blue-500/15 to-cyan-500/15'
-    },
-    {
-      title: 'Backend & Systems',
-      icon: <Database className="text-emerald-400" size={30} />,
-      desc: 'Building robust APIs and server-side logic for enterprise management systems.',
-      skills: ['PHP', 'Hack', 'Node.js', 'MySQL', 'REST APIs'],
-      color: 'from-emerald-500/15 to-teal-500/15'
-    },
-    {
-      title: 'Architecture & Tools',
-      icon: <Layers className="text-purple-400" size={30} />,
-      desc: 'Managing project lifecycles, deployments, and scalable system architectures.',
-      skills: ['Git/GitHub', 'System Design', 'Postman', 'Vercel', 'CI/CD'],
-      color: 'from-purple-500/15 to-pink-500/15'
-    }
-  ];
-
   return (
-    <section id="skills" className="py-24 md:py-36 relative overflow-hidden">
-      {/* Background Cinematic Accents */}
-      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-secondary/5 rounded-full blur-[140px] pointer-events-none" />
+    <section id="skills" className="py-28 md:py-40 relative overflow-hidden">
+      <div className="absolute top-1/3 left-0 w-80 h-80 bg-primary/6 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute bottom-1/3 right-0 w-80 h-80 bg-secondary/5 rounded-full blur-[100px] pointer-events-none" />
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-slate-900/10 to-transparent pointer-events-none" />
 
-      <div className="section-container">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-20 gap-10">
-          <div className="md:w-3/5">
+      <div className="section-container relative z-10">
+        {/* Header */}
+        <m.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-20 max-w-2xl"
+        >
+          <span className="eyebrow">Skills</span>
+          <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.05] mb-6">
+            Technical<br /><span className="text-gradient">powerhouse</span>
+          </h2>
+          <p className="text-slate-400 text-lg leading-relaxed">
+            A versatile stack engineered for building high-performance systems and modern web experiences.
+          </p>
+        </m.div>
+
+        {/* Skills grid */}
+        <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
+          {skillCategories.map((cat, i) => (
             <m.div
-              initial={{ opacity: 0, x: -30 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+              key={cat.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.8, delay: i * 0.08, ease: [0.16, 1, 0.3, 1] }}
+              className={`relative glass border ${cat.border} rounded-2xl p-6 hover:border-white/15 transition-all duration-300 group overflow-hidden`}
             >
-              <h2 className="eyebrow text-primary mb-5">Technical Mastery</h2>
-              <h3 className="text-4xl md:text-6xl font-black mb-8 leading-[1.3] md:leading-[1.2] tracking-tight">
-                My Digital <br /><span className="text-gradient">Powerhouse.</span>
-              </h3>
-              <p className="text-slate-400 text-lg leading-relaxed max-w-xl font-medium">
-                A versatile tech stack engineered for building high-performance management systems and cinematic digital experiences.
-              </p>
+              {/* Card glow on hover */}
+              <div className={`absolute inset-0 bg-gradient-to-br ${cat.color} opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
+
+              <div className="relative z-10">
+                {/* Header */}
+                <div className="flex items-center gap-3 mb-6">
+                  <span className="text-2xl">{cat.emoji}</span>
+                  <h3 className={`text-base font-bold ${cat.accent}`}>{cat.title}</h3>
+                </div>
+
+                {/* Skills with progress bars */}
+                <div className="space-y-4">
+                  {cat.skills.map((skill, j) => (
+                    <div key={skill.name}>
+                      <div className="flex items-center justify-between mb-1.5">
+                        <span className="text-sm font-medium text-slate-300">{skill.name}</span>
+                        <span className="text-xs text-slate-600">{skill.level}%</span>
+                      </div>
+                      <div className="h-1 bg-white/5 rounded-full overflow-hidden">
+                        <m.div
+                          initial={{ width: 0 }}
+                          whileInView={{ width: `${skill.level}%` }}
+                          viewport={{ once: true }}
+                          transition={{ duration: 1.2, delay: i * 0.05 + j * 0.08, ease: [0.16, 1, 0.3, 1] }}
+                          className={`h-full bg-gradient-to-r ${cat.color.replace('/10', '/80').replace('from-', 'from-').replace('to-', 'to-')} rounded-full`}
+                          style={{
+                            background: cat.title === 'Frontend' ? 'linear-gradient(to right, #3b82f6, #06b6d4)' :
+                                       cat.title === 'Backend' ? 'linear-gradient(to right, #10b981, #14b8a6)' :
+                                       cat.title === 'Databases' ? 'linear-gradient(to right, #f97316, #eab308)' :
+                                       cat.title === 'Cloud & Tools' ? 'linear-gradient(to right, #a855f7, #6366f1)' :
+                                       'linear-gradient(to right, #ec4899, #f43f5e)'
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </m.div>
-          </div>
-          
-          <m.div 
-            initial={{ opacity: 0, scale: 0.9 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="hidden md:flex glass p-8 rounded-[2.5rem] items-center gap-10 border border-white/10 shadow-2xl"
+          ))}
+
+          {/* Stats card */}
+          <m.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-40px' }}
+            transition={{ duration: 0.8, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+            className="glass border border-white/8 rounded-2xl p-6 flex flex-col justify-center md:col-span-2 xl:col-span-1"
           >
-            <div className="text-center">
-              <div className="text-4xl font-black text-white">3+</div>
-              <div className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Years XP</div>
-            </div>
-            <div className="w-px h-16 bg-white/10" />
-            <div className="text-center">
-              <div className="text-4xl font-black text-white">20+</div>
-              <div className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em]">Deployments</div>
+            <h3 className="text-sm font-bold text-slate-500 uppercase tracking-widest mb-6">At a Glance</h3>
+            <div className="grid grid-cols-2 gap-6">
+              {[
+                { value: '20+', label: 'Projects Completed' },
+                { value: '1+', label: 'Years Experience' },
+                { value: '5+', label: 'Tech Stacks' },
+                { value: '99%', label: 'Uptime Avg.' },
+              ].map((stat) => (
+                <div key={stat.label}>
+                  <div className="text-3xl font-black text-white mb-1">{stat.value}</div>
+                  <div className="text-xs text-slate-500 leading-tight">{stat.label}</div>
+                </div>
+              ))}
             </div>
           </m.div>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-8 md:gap-10">
-          {skillCategories.map((cat, i) => (
-            <SkillCard key={cat.title} cat={cat} i={i} />
-          ))}
         </div>
       </div>
     </section>

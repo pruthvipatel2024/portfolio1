@@ -55,47 +55,59 @@
 
 @layer components {
   .glass {
-    @apply backdrop-blur-xl bg-white/[0.06] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.1)];
-    /* GPU Acceleration */
+    @apply backdrop-blur-xl bg-white/[0.04] border border-white/10 shadow-[inset_0_1px_0_rgba(255,255,255,0.05)];
+    will-change: backdrop-filter, transform;
+  }
+
+  .glass-premium {
+    @apply backdrop-blur-2xl bg-slate-950/40 border border-white/5 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] shadow-2xl shadow-black/50;
     will-change: backdrop-filter, transform;
   }
 
   .glass-nav {
-    @apply backdrop-blur-xl bg-slate-950/75 border-b border-white/5 shadow-2xl;
+    @apply backdrop-blur-xl bg-slate-950/60 border-b border-white/5 shadow-2xl;
   }
 
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-primary via-secondary to-accent;
   }
 
+  .text-glow {
+    text-shadow: 0 0 40px rgba(99, 102, 241, 0.15);
+  }
+
   .btn-primary {
-    @apply px-10 py-4 rounded-full bg-gradient-to-r from-primary via-secondary to-accent bg-[length:200%_200%] text-white font-black transition-all hover:scale-[1.05] hover:bg-right active:scale-95 shadow-[0_18px_45px_rgba(99,102,241,0.25)] hover:shadow-[0_22px_55px_rgba(168,85,247,0.3)] focus:outline-none;
+    @apply px-8 py-3.5 rounded-xl bg-white text-slate-950 font-bold transition-all hover:scale-[1.03] hover:shadow-[0_20px_40px_rgba(255,255,255,0.1)] active:scale-98 shadow-md focus:outline-none flex items-center justify-center gap-2;
     will-change: transform;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-size: 11px;
+    font-size: 13px;
   }
 
   .btn-outline {
-    @apply px-10 py-4 rounded-full border border-white/15 bg-white/[0.04] hover:bg-white/10 hover:border-white/30 transition-all font-black active:scale-95 focus:outline-none;
+    @apply px-8 py-3.5 rounded-xl border border-white/10 bg-white/[0.02] text-white hover:bg-white/5 hover:border-white/20 transition-all font-bold active:scale-98 focus:outline-none flex items-center justify-center gap-2;
     will-change: transform;
-    text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-size: 11px;
+    font-size: 13px;
   }
 
   .section-container {
-    @apply container mx-auto px-6 lg:px-12;
+    @apply container mx-auto px-6 md:px-12 max-w-7xl;
   }
 
   .eyebrow {
-    @apply text-xs sm:text-sm font-black tracking-[0.25em] uppercase;
+    @apply text-xs font-black tracking-[0.25em] uppercase text-primary mb-5 block;
+  }
+  
+  .grid-bg {
+    background-size: 44px 44px;
+    background-image: 
+      linear-gradient(to right, rgba(255, 255, 255, 0.02) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.02) 1px, transparent 1px);
   }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -103,13 +115,13 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-800 rounded-full border-2 border-slate-950 hover:bg-primary transition-colors;
+  @apply bg-slate-800 rounded-full hover:bg-slate-700 transition-colors;
 }
 
 /* Noise Overlay */
 .noise {
   background-image: url("https://grainy-gradients.vercel.app/noise.svg");
-  opacity: 0.03;
+  opacity: 0.02;
   pointer-events: none;
 }
 

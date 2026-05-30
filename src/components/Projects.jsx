@@ -1,176 +1,207 @@
-import React, { memo } from 'react';
+import React from 'react';
 import { m } from 'framer-motion';
-import { Github, ArrowRight } from 'lucide-react';
+import { Github, ArrowUpRight, Star, GitFork } from 'lucide-react';
 
-const ProjectCard = memo(({ project, i }) => {
-  return (
-    <m.div
-      initial={{ opacity: 0, y: 50 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-100px" }}
-      transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-      className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} gap-12 lg:gap-20 items-center relative z-10 group`}
-    >
-      {/* Visual Side */}
-      <div className="lg:w-3/5 w-full relative">
-        {/* Cinematic Backdrop Glow */}
-        <div className={`absolute -inset-4 bg-gradient-to-tr from-primary/10 to-accent/10 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 blur-2xl rounded-[3rem]`} />
-        
-        <m.div 
-          whileHover={{ y: -10 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="group relative rounded-[2.5rem] overflow-hidden glass border border-white/10 aspect-video shadow-2xl z-10"
-        >
-          <m.img
-            src={`${project.image}&w=1000&q=80`}
-            srcSet={`${project.image}&w=600&q=70 600w, ${project.image}&w=1000&q=80 1000w, ${project.image}&w=1400&q=85 1400w`}
-            sizes="(max-width: 768px) 100vw, 60vw"
-            alt={project.title}
-            width="1000"
-            height="562"
-            loading="lazy"
-            whileHover={{ scale: 1.05 }}
-            transition={{ duration: 0.8, ease: "easeOut" }}
-            className="w-full h-full object-cover opacity-90 transition-opacity group-hover:opacity-100"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/50 via-transparent to-transparent opacity-40 group-hover:opacity-20 transition-opacity" />
-          
-          {/* Status Badge */}
-          <div className="absolute top-6 left-6">
-            <span className="px-5 py-2 glass rounded-2xl text-[10px] font-black uppercase tracking-[0.2em] text-white shadow-xl">
-              {project.category}
-            </span>
-          </div>
+const projects = [
+  {
+    title: 'New Era Beauti Care',
+    category: 'Service Platform',
+    desc: 'A premium beauty parlour experience with an integrated cinematic booking system, live availability management, and a high-conversion UX designed for modern consumers.',
+    tags: ['React', 'Tailwind', 'Framer Motion', 'Vite'],
+    image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1200&q=80',
+    github: 'https://github.com/pruthvipatel2024/new-era-beauti-care',
+    demo: 'https://new-era-beauti-care.vercel.app/',
+    metrics: { stars: '—', forks: '—', status: 'Live' },
+    featured: true,
+  },
+  {
+    title: 'Enterprise E-Commerce',
+    category: 'Retail Architecture',
+    desc: 'High-performance retail engine built with HHVM/Hack, featuring advanced multi-layer caching, real-time inventory, and an admin dashboard for full product lifecycle management.',
+    tags: ['Hack', 'HHVM', 'PHP', 'MySQL', 'Scaling'],
+    image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=1200&q=80',
+    github: 'https://github.com/pruthvipatel2024/E-Commerce',
+    demo: null,
+    metrics: { stars: '—', forks: '—', status: 'Private' },
+    featured: true,
+  },
+  {
+    title: 'Camera Store Marketplace',
+    category: 'Niche Retail',
+    desc: 'Specialized cinematography gear marketplace with robust real-time inventory management, category filtering, a cart system, and a clean checkout flow.',
+    tags: ['PHP', 'MySQL', 'Tailwind', 'JavaScript'],
+    image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=1200&q=80',
+    github: 'https://github.com/pruthvipatel2024/camera-store',
+    demo: null,
+    metrics: { stars: '—', forks: '—', status: 'Complete' },
+    featured: false,
+  },
+  {
+    title: 'Payment Management System',
+    category: 'Fintech Suite',
+    desc: 'Complete financial management ecosystem for educational institutions. Automated payroll reporting, multi-role admin access, and audit trails for 500+ lecturer records.',
+    tags: ['PHP', 'AJAX', 'MySQL', 'Bootstrap', 'Admin'],
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+    github: 'https://github.com/pruthvipatel2024/project-1',
+    demo: null,
+    metrics: { stars: '—', forks: '—', status: 'Complete' },
+    featured: false,
+  },
+];
 
-
-        </m.div>
-      </div>
-
-      {/* Content Side */}
-      <div className="lg:w-2/5 w-full text-left">
-        <m.div
-          initial={{ opacity: 0, x: i % 2 === 0 ? 20 : -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.8 }}
-        >
-          <h4 className="text-3xl md:text-5xl font-black mb-6 tracking-tight group-hover:text-primary transition-colors duration-500">
-            {project.title}
-          </h4>
-          <p className="text-slate-400 text-lg mb-10 leading-relaxed font-medium">
-            {project.desc}
-          </p>
-
-          <div className="flex flex-wrap gap-3 mb-10">
-            {project.tags.map(tag => (
-              <span key={tag} className="px-4 py-1.5 bg-white/5 border border-white/5 rounded-full text-[11px] font-bold text-slate-500 uppercase tracking-widest group-hover:text-slate-300 group-hover:border-white/10 transition-colors">
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <div className="flex items-center gap-10">
-            <a
-              href={project.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.2em] text-white hover:text-primary transition-all group/link"
-              aria-label={`View source code for ${project.title}`}
-            >
-              <Github size={20} className="group-hover/link:rotate-12 transition-transform" />
-              Source
-            </a>
-            <a
-              href={project.demo}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-3 text-xs font-black uppercase tracking-[0.2em] text-white hover:text-secondary transition-all group/link"
-              aria-label={`View live demo for ${project.title}`}
-            >
-              Live Experience
-              <ArrowRight size={18} className="group-hover/link:translate-x-1.5 transition-transform" />
-            </a>
-          </div>
-        </m.div>
-      </div>
-    </m.div>
-  );
-});
-
-ProjectCard.displayName = 'ProjectCard';
+const statusColors = {
+  'Live': 'bg-green-500/10 text-green-400 border-green-500/20',
+  'Private': 'bg-yellow-500/10 text-yellow-400 border-yellow-500/20',
+  'Complete': 'bg-blue-500/10 text-blue-400 border-blue-500/20',
+};
 
 const Projects = () => {
-  const projects = [
-    {
-      title: 'New Era Beauti Care',
-      category: 'Service Platform',
-      desc: 'A premium beauty parlour experience with an integrated cinematic booking system and high-conversion UX.',
-      tags: ['React', 'Tailwind', 'Booking', 'Motion'],
-      image: 'https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop',
-      github: 'https://github.com/pruthvipatel2024/new-era-beauti-care',
-      demo: 'https://new-era-beauti-care.vercel.app/'
-    },
-    {
-      title: 'Enterprise E-Commerce',
-      category: 'Retail Architecture',
-      desc: 'High-performance retail engine built with HHVM/Hack, featuring advanced multi-layer caching.',
-      tags: ['Hack', 'HHVM', 'Database', 'Scaling'],
-      image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop',
-      github: 'https://github.com/pruthvipatel2024/E-Commerce',
-      demo: '#'
-    },
-    {
-      title: 'Camera Store',
-      category: 'Niche Retail',
-      desc: 'Specialized cinematography gear marketplace with robust real-time inventory management.',
-      tags: ['PHP', 'MySQL', 'Tailwind', 'JS'],
-      image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop',
-      github: 'https://github.com/pruthvipatel2024/camera-store',
-      demo: '#'
-    },
-    {
-      title: 'Payment Mgmt System',
-      category: 'Fintech Suite',
-      desc: 'Complete financial management ecosystem for educational institutions with automated reporting.',
-      tags: ['PHP', 'AJAX', 'MySQL', 'Admin'],
-      image: 'https://images.unsplash.com/photo-1496179356921-5f385945b45e?auto=format&fit=crop',
-      github: 'https://github.com/pruthvipatel2024/project-1',
-      demo: '#'
-    }
-  ];
-
   return (
-    <section id="projects" className="py-24 md:py-36 relative overflow-hidden bg-slate-900/10">
-      {/* Background Cinematic Texture */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-[0.02] pointer-events-none" />
+    <section id="projects" className="py-28 md:py-40 relative overflow-hidden">
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-px bg-gradient-to-r from-transparent via-white/10 to-transparent" />
+      <div className="absolute bottom-1/4 right-0 w-96 h-96 bg-accent/5 rounded-full blur-[100px] pointer-events-none" />
 
-      <div className="section-container">
-        <div className="text-center mb-24">
-          <m.h2
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="eyebrow text-secondary mb-5"
-          >
-            Digital Portfolio
-          </m.h2>
-          <m.h3
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1, duration: 0.8 }}
-            className="text-4xl md:text-7xl font-black mb-10 tracking-tight"
-          >
-            Real World <span className="text-gradient">Solutions.</span>
-          </m.h3>
-          <div className="w-24 h-1.5 bg-gradient-to-r from-secondary to-accent rounded-full mx-auto shadow-lg shadow-secondary/20" />
-        </div>
+      <div className="section-container relative z-10">
+        {/* Header */}
+        <m.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="mb-20"
+        >
+          <span className="eyebrow">Projects</span>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <h2 className="text-4xl md:text-6xl font-black tracking-tight leading-[1.05]">
+              Real-world<br /><span className="text-gradient">solutions</span>
+            </h2>
+            <p className="text-slate-400 text-base max-w-sm leading-relaxed">
+              Projects built to solve real business problems — from beauty parlours to enterprise fintech systems.
+            </p>
+          </div>
+        </m.div>
 
-        <div className="space-y-32 md:space-y-48">
-          {projects.map((project, i) => (
-            <ProjectCard key={project.title} project={project} i={i} />
+        {/* Featured projects – large layout */}
+        <div className="space-y-6 mb-6">
+          {projects.filter(p => p.featured).map((project, i) => (
+            <m.div
+              key={project.title}
+              initial={{ opacity: 0, y: 40 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-60px' }}
+              transition={{ duration: 0.9, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="glass border border-white/8 rounded-3xl overflow-hidden hover:border-white/15 transition-all duration-500 group"
+            >
+              <div className={`flex flex-col ${i % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'}`}>
+                {/* Image */}
+                <div className="lg:w-3/5 relative overflow-hidden min-h-[250px] sm:min-h-[300px] lg:min-h-[380px]">
+                  <m.img
+                    src={project.image}
+                    alt={project.title}
+                    loading="lazy"
+                    className="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-80 transition-opacity duration-700 scale-100 group-hover:scale-105 transition-transform"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-r from-slate-950/50 via-transparent to-transparent" />
+                  <div className="absolute top-5 left-5">
+                    <span className={`px-3 py-1 rounded-lg border text-xs font-bold ${statusColors[project.metrics.status]}`}>
+                      {project.metrics.status}
+                    </span>
+                  </div>
+                  <div className="absolute bottom-5 left-5">
+                    <span className="px-3 py-1 rounded-lg bg-white/5 border border-white/10 text-xs text-slate-400 font-medium">{project.category}</span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="lg:w-2/5 p-8 lg:p-10 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-2xl lg:text-3xl font-bold text-white mb-3 group-hover:text-primary transition-colors duration-300">
+                      {project.title}
+                    </h3>
+                    <p className="text-slate-400 text-sm leading-relaxed mb-6">{project.desc}</p>
+                    <div className="flex flex-wrap gap-2 mb-8">
+                      {project.tags.map(tag => (
+                        <span key={tag} className="px-3 py-1 bg-white/[0.03] border border-white/5 rounded-lg text-xs font-medium text-slate-500">
+                          {tag}
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="flex items-center gap-4">
+                    <a href={project.github} target="_blank" rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-sm font-medium text-slate-400 hover:text-white transition-colors">
+                      <Github size={16} /> Source
+                    </a>
+                    {project.demo && project.demo !== '#' && (
+                      <a href={project.demo} target="_blank" rel="noopener noreferrer"
+                        className="btn-primary !py-2.5 !px-5 text-xs">
+                        Live Demo <ArrowUpRight size={14} />
+                      </a>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </m.div>
           ))}
         </div>
+
+        {/* Other projects – grid */}
+        <div className="grid sm:grid-cols-2 gap-6">
+          {projects.filter(p => !p.featured).map((project, i) => (
+            <m.div
+              key={project.title}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-40px' }}
+              transition={{ duration: 0.8, delay: i * 0.1, ease: [0.16, 1, 0.3, 1] }}
+              className="glass border border-white/8 rounded-2xl overflow-hidden hover:border-white/15 transition-all duration-500 group flex flex-col"
+            >
+              <div className="relative h-44 overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  loading="lazy"
+                  className="w-full h-full object-cover opacity-50 group-hover:opacity-70 group-hover:scale-105 transition-all duration-700"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+                <div className="absolute top-3 right-3">
+                  <span className={`px-2.5 py-1 rounded-lg border text-xs font-bold ${statusColors[project.metrics.status]}`}>
+                    {project.metrics.status}
+                  </span>
+                </div>
+              </div>
+              <div className="p-6 flex flex-col flex-1">
+                <div className="text-xs font-bold text-slate-600 uppercase tracking-widest mb-2">{project.category}</div>
+                <h3 className="text-lg font-bold text-white mb-2 group-hover:text-primary transition-colors">{project.title}</h3>
+                <p className="text-slate-500 text-sm leading-relaxed mb-5 flex-1">{project.desc}</p>
+                <div className="flex flex-wrap gap-1.5 mb-5">
+                  {project.tags.map(tag => (
+                    <span key={tag} className="px-2.5 py-1 bg-white/[0.02] border border-white/5 rounded-md text-xs text-slate-600">{tag}</span>
+                  ))}
+                </div>
+                <div className="flex items-center gap-4 pt-4 border-t border-white/5">
+                  <a href={project.github} target="_blank" rel="noopener noreferrer"
+                    className="flex items-center gap-1.5 text-xs font-medium text-slate-500 hover:text-white transition-colors">
+                    <Github size={13} /> View Code
+                  </a>
+                </div>
+              </div>
+            </m.div>
+          ))}
+        </div>
+
+        {/* View all CTA */}
+        <m.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="mt-12 text-center"
+        >
+          <a href="https://github.com/pruthvipatel2024" target="_blank" rel="noopener noreferrer" className="btn-outline inline-flex">
+            <Github size={15} /> View all on GitHub <ArrowUpRight size={14} />
+          </a>
+        </m.div>
       </div>
     </section>
   );
