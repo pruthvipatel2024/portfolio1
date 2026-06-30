@@ -51,14 +51,13 @@ const Navbar = () => {
     document.body.style.overflow = 'unset';
     const targetId = href.replace('#', '');
     if (targetId === 'home') {
-      setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 100);
+      setTimeout(() => window.scrollTo({ top: 0 }), 100);
       return;
     }
     const el = document.getElementById(targetId);
     if (el) {
       setTimeout(() => {
-        const y = el.getBoundingClientRect().top + window.scrollY - 80;
-        window.scrollTo({ top: y, behavior: 'smooth' });
+        el.scrollIntoView();
       }, isMenuOpen ? 300 : 0);
     }
   }, [isMenuOpen]);

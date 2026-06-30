@@ -19,16 +19,15 @@ const socials = [
 ];
 
 const Footer = () => {
-  const scrollToTop = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+  const scrollToTop = () => window.scrollTo({ top: 0 });
 
   const handleNavClick = (e, href) => {
     e.preventDefault();
     const el = document.getElementById(href.replace('#', ''));
     if (el) {
-      const y = el.getBoundingClientRect().top + window.scrollY - 80;
-      window.scrollTo({ top: y, behavior: 'smooth' });
+      el.scrollIntoView();
     } else {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      window.scrollTo({ top: 0 });
     }
   };
 

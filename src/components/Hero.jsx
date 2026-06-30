@@ -88,7 +88,7 @@ const Hero = () => {
               <a href="#projects" onClick={(e) => {
                 e.preventDefault();
                 const el = document.getElementById('projects');
-                if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - 80, behavior: 'smooth' });
+                if (el) el.scrollIntoView();
               }} className="btn-primary">
                 View Projects <ArrowRight size={16} />
               </a>
