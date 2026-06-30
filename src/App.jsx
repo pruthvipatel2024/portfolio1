@@ -1,4 +1,4 @@
-import React, { Suspense, lazy, useState } from 'react';
+import React, { useState } from 'react';
 import { LazyMotion, domAnimation, AnimatePresence, m } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -9,17 +9,9 @@ import Skills from './components/Skills';
 import Achievements from './components/Achievements';
 import MouseFollower from './components/MouseFollower';
 import SkeletonLoader from './components/SkeletonLoader';
+import Contact from './components/Contact';
+import Footer from './components/Footer';
 import { SpeedInsights } from "@vercel/speed-insights/react";
-
-// Only lazy load the bottom-most sections for extreme balance
-const Contact = lazy(() => import('./components/Contact'));
-const Footer = lazy(() => import('./components/Footer'));
-
-const SectionLoading = () => (
-  <div className="h-[40vh] w-full flex items-center justify-center">
-    <div className="w-10 h-10 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
-  </div>
-);
 
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -67,15 +59,10 @@ const App = () => {
               <Projects />
               <Skills />
               <Achievements />
-              
-              <Suspense fallback={<SectionLoading />}>
-                <Contact />
-              </Suspense>
+              <Contact />
             </m.main>
             
-            <Suspense fallback={null}>
-              <Footer />
-            </Suspense>
+            <Footer />
             
             <SpeedInsights />
           </m.div>
